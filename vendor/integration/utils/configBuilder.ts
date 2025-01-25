@@ -216,7 +216,7 @@ const getAppEventBlog = (config: Config) => {
     postsPerPage: 6,
     isRelatedPostsEnabled: false,
     relatedPostsCount: 4,
-    post: {
+    event: {
       isEnabled: true,
       permalink: '/termine/%slug%',
       robots: {

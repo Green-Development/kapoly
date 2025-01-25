@@ -51,5 +51,5 @@ const metadata = merge(
     {event.Content ? <event.Content /> : <Fragment set:html={event.content || ''} />}
   </SingleEvent>
   <ToEventLink />
-  <RelatedEvents post={event} />
+  <RelatedEvents event={event} />
 </Layout>

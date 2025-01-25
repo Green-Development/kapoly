@@ -1,7 +1,7 @@
 import type { PaginateFunction } from 'astro';
 import { getCollection } from 'astro:content';
 import type { CollectionEntry } from 'astro:content';
-import type { Event } from '~/types';
+import type {Event, Taxonomy} from '~/types';
 import { APP_EVENT_BLOG } from 'astrowind:config';
 import {
   cleanSlug,
@@ -217,7 +217,7 @@ export const getStaticPathsEventBlogCategory = async ({ paginate }: { paginate: 
   if (!isBlogEnabled || !isBlogCategoryRouteEnabled) return [];
 
   const events = await fetchEvents();
-  const categories = {};
+  const categories: Record<string, Taxonomy> = {};
   events.map((event) => {
     if (event.category?.slug) {
       categories[event.category?.slug] = event.category;
@@ -241,7 +241,7 @@ export const getStaticPathsEventBlogTag = async ({ paginate }: { paginate: Pagin
   if (!isBlogEnabled || !isBlogTagRouteEnabled) return [];
 
   const events = await fetchEvents();
-  const tags = {};
+  const tags: Record<string, Taxonomy> = {};
   events.map((event) => {
     if (Array.isArray(event.tags)) {
       event.tags.map((tag) => {
