@@ -1,22 +1,22 @@
 site:
-  name: AstroWind
-  site: 'https://astrowind.vercel.app'
+  name: KApoly
+  site: 'https://green-development.github.io/kapoly'
   base: '/'
   trailingSlash: false
 
-  googleSiteVerificationId: orcPxI47GSa-cRvY11tUe6iGg2IO_RPvnA1q95iEM3M
+  googleSiteVerificationId: false
 
 # Default SEO metadata
 metadata:
   title:
-    default: AstroWind
-    template: '%s — AstroWind'
-  description: "\U0001F680 Suitable for Startups, Small Business, Sass Websites, Professional Portfolios, Marketing Websites, Landing Pages & Blogs."
+    default: KApoly
+    template: '%s – KApoly'
+  description: "Der Karlsruher Stammtisch für Polyamorie, Beziehungsanarchie und alternative Beziehungskonzepte"
   robots:
     index: true
     follow: true
   openGraph:
-    site_name: AstroWind
+    site_name: KApoly
     images:
       - url: '~/assets/images/default.png'
         width: 1200
@@ -24,7 +24,7 @@ metadata:
     type: website
 
 i18n:
-  language: en
+  language: de
   textDirection: ltr
 
 apps:
@@ -34,35 +34,62 @@ apps:
 
     post:
       isEnabled: true
-      permalink: '/%slug%' # Variables: %slug%, %year%, %month%, %day%, %hour%, %minute%, %second%, %category%
+      permalink: 'blog/%slug%'
       robots:
         index: true
 
     list:
       isEnabled: true
-      pathname: 'blog' # Blog main path, you can change this to "articles" (/articles)
+      pathname: 'blog'
       robots:
         index: true
 
     category:
       isEnabled: true
-      pathname: 'category' # Category main path /category/some-category, you can change this to "group" (/group/some-category)
+      pathname: 'category'
       robots:
         index: true
 
     tag:
       isEnabled: true
-      pathname: 'tag' # Tag main path /tag/some-tag, you can change this to "topics" (/topics/some-category)
+      pathname: 'tag'
       robots:
         index: false
 
     isRelatedPostsEnabled: true
     relatedPostsCount: 4
+  eventBlog:
+    isEnabled: true
+    postsPerPage: 6
 
+    event:
+      isEnabled: true
+      permalink: 'termine/%slug%'
+      robots:
+        index: true
+    list:
+      isEnabled: true
+      pathname: 'termine'
+      robots:
+        index: true
+    category:
+      isEnabled: true
+      pathname: 'termine/category'
+      robots:
+        index: true
+    tag:
+      isEnabled: true
+      pathname: 'termine/tag'
+      robots:
+        index: false
+
+    isRelatedPostsEnabled: false
+    relatedPostsCount: 4
+  
 analytics:
   vendors:
-    googleAnalytics:
-      id: null # or "G-XXXXXXXXXX"
+    goatcounter:
+      id: kapoly
 
 ui:
   theme: 'system' # Values: "system" | "light" | "dark" | "light:only" | "dark:only"

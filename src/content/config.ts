@@ -63,6 +63,43 @@ const postCollection = defineCollection({
   }),
 });
 
+
+const eventsCollection = defineCollection({
+  schema: z.object({
+    publishDate: z.date().optional(),
+    updateDate: z.date().optional(),
+    draft: z.boolean().optional(),
+
+    title: z.string(),
+    date: z.date(),
+    location: z.string().optional(),
+    excerpt: z.string().optional(),
+    image: z.string().optional(),
+
+    category: z.string().optional(),
+    tags: z.array(z.string()).optional(),
+    author: z.string().optional(),
+
+    metadata: metadataDefinition(),
+  }),
+});
+
+const resourcesCollection = defineCollection({
+  type: "data",
+  schema: z.object({
+    category: z.enum(["book", "podcast", "article", "social-media", "website", "other"]),
+    title: z.string(),
+    subtitle: z.string().optional(),
+    description: z.string().optional(),
+    link: z.string().optional(),
+    linkText: z.string().optional(),
+    linkIcon: z.string().optional(),
+    icon: z.string().optional(),
+  }),
+});
+
 export const collections = {
   post: postCollection,
+  resources: resourcesCollection,
+  events: eventsCollection
 };

@@ -1,0 +1,65 @@
+---
+import type {InferGetStaticPropsType, GetStaticPaths} from 'astro';
+
+import Layout from '~/layouts/PageLayout.astro';
+import EventList from '~/components/blog/EventList.astro';
+import Headline from '~/components/blog/Headline.astro';
+import Pagination from '~/components/blog/Pagination.astro';
+// import PostTags from "~/components/blog/Tags.astro";
+
+import {blogListRobots, getStaticPathsEventBlogList} from '~/utils/events';
+import Features2 from "../../components/widgets/Features2.astro";
+
+export const prerender = true;
+
+export const getStaticPaths = (async ({paginate}) => {
+  return await getStaticPathsEventBlogList({paginate});
+}) satisfies GetStaticPaths;
+
+type Props = InferGetStaticPropsType<typeof getStaticPaths>;
+
+const {page} = Astro.props as Props;
+const currentPage = page.currentPage ?? 1;
+
+// const allCategories = await findCategories();
+// const allTags = await findTags();
+
+const metadata = {
+  title: `Termine${currentPage > 1 ? ` — Seite ${currentPage}` : ''}`,
+  robots: {
+    index: blogListRobots?.index && currentPage === 1,
+    follow: blogListRobots?.follow,
+  },
+  openGraph: {
+    type: 'blog',
+  },
+};
+---
+
+<Layout metadata={metadata}>
+  <section class="px-6 sm:px-6 py-12 sm:py-16 lg:py-20 mx-auto max-w-4xl">
+    <Headline>
+      <span class="text-primary">Ter</span><span class="text-accent">mine</span>
+    </Headline>
+    <Features2
+      columns={3}
+      items={[
+        {
+          description: 'Unser ☕ Stammtisch findet immer am 11. jedes Monats um 19:00 Uhr statt. '
+        },
+        {
+          description: 'Unser 💬 Thementreff findet meistens Ende des Monats statt, werden aber oft erst 1-2 Wochen vorher angekündigt. '
+        },
+        {
+          description: "Es finden gelegentlich auch weitere Treffen statt, die jeweils von unterschiedlichen Leuten organisiert werden."
+        },
+      ]}
+    />
+    <EventList posts={page.data}/>
+    <Pagination prevUrl={page.url.prev} nextUrl={page.url.next}/>
+    <!--
+      <PostTags tags={allCategories} class="mb-2" title="Search by Categories:" isCategory />
+      <PostTags tags={allTags}  title="Search by Tags:" />
+    -->
+  </section>
+</Layout>

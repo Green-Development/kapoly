@@ -1,6 +1,6 @@
 import slugify from 'limax';
 
-import { SITE, APP_BLOG } from 'astrowind:config';
+import {SITE, APP_BLOG, APP_EVENT_BLOG} from 'astrowind:config';
 
 import { trim } from '~/utils/utils';
 
@@ -26,6 +26,12 @@ export const CATEGORY_BASE = cleanSlug(APP_BLOG?.category?.pathname);
 export const TAG_BASE = cleanSlug(APP_BLOG?.tag?.pathname) || 'tag';
 
 export const POST_PERMALINK_PATTERN = trimSlash(APP_BLOG?.post?.permalink || `${BLOG_BASE}/%slug%`);
+
+export const EVENT_BLOG_BASE = cleanSlug(APP_EVENT_BLOG?.list?.pathname);
+export const EVENT_CATEGORY_BASE = cleanSlug(APP_EVENT_BLOG?.category?.pathname);
+export const EVENT_TAG_BASE = cleanSlug(APP_EVENT_BLOG?.tag?.pathname) || 'tag';
+
+export const EVENT_PERMALINK_PATTERN = trimSlash(APP_EVENT_BLOG?.post?.permalink || `${EVENT_BLOG_BASE}/%slug%`);
 
 /** */
 export const getCanonical = (path = ''): string | URL => {
@@ -60,6 +66,10 @@ export const getPermalink = (slug = '', type = 'page'): string => {
     case 'blog':
       permalink = getBlogPermalink();
       break;
+      
+    case 'termine':
+      permalink = getEventBlogPermalink();
+      break;
 
     case 'asset':
       permalink = getAsset(slug);
@@ -68,9 +78,17 @@ export const getPermalink = (slug = '', type = 'page'): string => {
     case 'category':
       permalink = createPath(CATEGORY_BASE, trimSlash(slug));
       break;
+      
+    case 'eventCategory':
+      permalink = createPath(EVENT_CATEGORY_BASE, trimSlash(slug));
+      break;
 
     case 'tag':
       permalink = createPath(TAG_BASE, trimSlash(slug));
+      break;
+      
+    case 'eventTag':
+      permalink = createPath(EVENT_TAG_BASE, trimSlash(slug));
       break;
 
     case 'post':
@@ -91,6 +109,9 @@ export const getHomePermalink = (): string => getPermalink('/');
 
 /** */
 export const getBlogPermalink = (): string => getPermalink(BLOG_BASE);
+
+/** */
+export const getEventBlogPermalink = (): string => getPermalink(EVENT_BLOG_BASE);
 
 /** */
 export const getAsset = (path: string): string =>
@@ -118,6 +139,8 @@ export const applyGetPermalinks = (menu: object = {}) => {
             obj[key] = getHomePermalink();
           } else if (menu[key].type === 'blog') {
             obj[key] = getBlogPermalink();
+          } else if (menu[key].type === 'termine') {
+            obj[key] = getEventBlogPermalink();
           } else if (menu[key].type === 'asset') {
             obj[key] = getAsset(menu[key].url);
           } else if (menu[key].url) {

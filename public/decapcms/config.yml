@@ -6,9 +6,9 @@ media_folder: 'src/assets/images'
 public_folder: '/_astro'
 
 collections:
-  - name: 'post'
+  - name: 'event'
     label: 'Post'
-    folder: 'src/content/post'
+    folder: 'src/content/event'
     create: true
     fields:
       - { label: 'Title', name: 'title', widget: 'string' }

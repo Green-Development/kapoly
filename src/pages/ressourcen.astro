@@ -1,0 +1,116 @@
+---
+import Features2 from '~/components/widgets/Features2.astro';
+import Hero from '~/components/widgets/Hero.astro';
+import Layout from '~/layouts/PageLayout.astro';
+import BlogHighlightedPosts from "../components/widgets/BlogHighlightedPosts.astro";
+import Button from "../components/ui/Button.astro";
+import {getCollection} from "astro:content";
+import {undefined} from 'astro/zod';
+import type {CallToAction} from "../types";
+
+const resources = await getCollection('resources');
+const retrieveEntries = (category: string, defaultIcon: string, defaultLinkText: string, defaultLinkIcon?: string) =>
+  resources
+    .filter((item) => item.data.category === category)
+    .map((item) => {
+      const {
+        title, subtitle, description, link, linkText, linkIcon, icon
+      } = item.data;
+      return {
+        title,
+        subtitle,
+        description,
+        callToAction: (
+          link
+            ? {
+              variant: 'tertiary',
+              text: linkText ?? defaultLinkText,
+              href: link,
+              target: '_blank',
+              icon: `tabler:${linkIcon ?? defaultLinkIcon ?? defaultIcon}`,
+              class: "hover:text-accent dark:hover:bg-accent w-full"
+            }
+            : undefined
+        ) as CallToAction | undefined,
+        icon: `tabler:${icon ?? defaultIcon}`
+      }
+    });
+
+const books = retrieveEntries("book", "book", "Zum Buch", "shopping-cart")
+const articles = retrieveEntries("article", "news", "Zum Artikel")
+const podcasts = retrieveEntries("podcast", "headphones", "Zum Podcast")
+const websites = retrieveEntries("website", "device-desktop", "Zur Webseite")
+const socialMedia = retrieveEntries("social-media", "share", "Zu Social Media")
+const other = retrieveEntries("other", "table-heart", "Mehr erfahren")
+
+
+const metadata = {
+  title: 'Ressourcen',
+};
+---
+
+<Layout metadata={metadata}>
+  <!-- Hero Widget ******************* -->
+
+  <Hero
+    tagline="Ressourcen"
+    title="Empfehlenswerte Bücher, Podcasts und Artikel"
+    subtitle="Hier ist unsere Auflistung über empfehlenswerte Medien zum Thema alternativer Beziehungsgestaltung. Sie ist keineswegs vollständig, aber vielleicht hilft sie dir weiter."
+  />
+  <section id="Inhaltverzeichnis" class="max-w-4xl mx-auto dark:bg-slate-900 shadow-md rounded-lg p-6 motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade">
+    <ul class="flex space-x-4 justify-evenly pb-2">
+      <Button text="Bücher" href="#Bücher" variant="secondary"
+              class="dark:hover:bg-primary hover:bg-primary hover:text-white"/>
+      <Button text="Podcasts" href="#Podcasts" variant="secondary"
+              class="dark:hover:bg-accent hover:bg-accent hover:text-white"/>
+      <Button text="Artikel" href="#Artikel" variant="secondary"
+              class="dark:hover:bg-secondary hover:bg-secondary hover:text-white"/>
+      <Button text="<nobr>Social Media</nobr>" href="#SocialMedia" variant="secondary"
+              class="dark:hover:bg-primary hover:bg-primary hover:text-white"/>
+      <Button text="Webseiten" href="#Webseiten" variant="secondary"
+              class="dark:hover:bg-accent hover:bg-accent hover:text-white"/>
+      <Button text="Sonstige" href="#Sonstige" variant="secondary"
+              class="dark:hover:bg-secondary hover:bg-secondary hover:text-white"/>
+    </ul>
+  </section>
+  <Features2
+    id="Bücher"
+    title="Bücher"
+    columns={3}
+    items={books}
+  />
+  <Features2
+    id="Podcasts"
+    title="Podcasts"
+    columns={3}
+    items={podcasts}
+  />
+  <Features2
+    id="Artikel"
+    title="Artikel"
+    columns={3}
+    items={articles}
+  />
+  <Features2
+    id="SocialMedia"
+    title="Social Media"
+    columns={3}
+    items={socialMedia}
+  />
+  <Features2
+    id="Webseiten"
+    title="Webseiten"
+    columns={3}
+    items={websites}
+  />
+  <Features2
+    id="Sonstige"
+    title="Sonstige"
+    columns={3}
+    items={other}
+  />
+
+  <BlogHighlightedPosts postIds={["winterwanderung"]}></BlogHighlightedPosts>
+
+
+</Layout>

@@ -1,13 +1,10 @@
 ---
-import { GoogleAnalytics } from '@astrolib/analytics';
 import { ANALYTICS } from 'astrowind:config';
 ---
 
 {
-  ANALYTICS?.vendors?.googleAnalytics?.id ? (
-    <GoogleAnalytics
-      id={String(ANALYTICS.vendors.googleAnalytics.id)}
-      partytown={ANALYTICS?.vendors?.googleAnalytics?.partytown}
-    />
+  ANALYTICS?.vendors?.goatcounter?.id ? (
+    <script data-goatcounter=`https://${String(ANALYTICS?.vendors?.goatcounter?.id)}.goatcounter.com/count`
+        async src="//gc.zgo.at/count.js"/>
   ) : null
 }

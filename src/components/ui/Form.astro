@@ -5,7 +5,12 @@ import Button from '~/components/ui/Button.astro';
 const { inputs, textarea, disclaimer, button = 'Contact us', description = '' } = Astro.props;
 ---
 
-<form>
+<form       
+  target="_self"
+  action="https://fabform.io/f/z4DU7zu"
+  method="POST"
+  aria-label="Kontaktformular"
+>
   {
     inputs &&
       inputs.map(
@@ -55,7 +60,8 @@ const { inputs, textarea, disclaimer, button = 'Contact us', description = '' } 
             id="disclaimer"
             name="disclaimer"
             type="checkbox"
-            class="cursor-pointer mt-1 py-3 px-4 block w-full text-md rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-slate-900"
+            class="cursor-pointer mt-1 py-3 px-4 block w-full text-md rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-slate-900" 
+            required
           />
         </div>
         <div class="ml-3">

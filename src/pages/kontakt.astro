@@ -1,0 +1,72 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import ContactUs from '~/components/widgets/Contact.astro';
+import Features2 from '~/components/widgets/Features2.astro';
+import Button from "../components/ui/Button.astro";
+
+const metadata = {
+  title: 'Kontakt',
+};
+---
+
+<Layout metadata={metadata}>
+    <Features2
+    title="Tritt mit uns in Kontakt"
+    items={[
+      {
+        title: 'Kontaktformular',
+        description: 'Nutze dieses Kontaktformular, um uns eine Nachricht zu senden',
+        icon: 'tabler:forms',
+      },
+      {
+        title: 'Persönlich',
+        description: 'Besuche uns bei einem unserer Stammtische',
+        icon: 'tabler:users',
+      },
+      {
+        title: 'E-Mail',
+        description: 'Schreibe uns eine E-Mail: kapoly@familymail.de',
+        icon: 'tabler:mail',
+      },
+    ]}
+  />
+  <section id=kontaktmoeglichkeiten" class="max-w-3xl mx-auto dark:bg-slate-900 shadow-md rounded-lg p-6 motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade">
+    <ul class="flex space-x-4 justify-evenly pb-2">
+      <Button text="Kontaktformular" href="#form" variant="secondary"
+              class="dark:hover:bg-primary hover:bg-primary hover:text-white"/>
+      <Button text="Persönlich" href="/termine" variant="secondary"
+              class="dark:hover:bg-accent hover:bg-accent hover:text-white"/>
+      <Button text="E-Mail" href="mailto:kapoly@familymail.de" variant="secondary"
+              class="dark:hover:bg-secondary hover:bg-secondary hover:text-white"/>
+    </ul>
+  </section>
+  <ContactUs
+    id="form"
+    title="Kontaktformular"
+    inputs={[
+      {
+        type: 'text',
+        name: 'name',
+        label: 'Name',
+      },
+      {
+        type: 'email',
+        name: 'email',
+        label: 'E-Mail',
+      },
+      {
+        type: 'text',
+        name: 'subject',
+        label: 'Betreff',
+      },
+    ]}
+    textarea={{
+      label: 'Nachricht',
+    }}
+    disclaimer={{
+      label:
+        'Ich stimme der Verarbeitung der Daten gemäß der Datenschutzerklärung zu.'
+    }}
+    button="Nachricht senden"
+  />
+</Layout>

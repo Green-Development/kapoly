@@ -1,5 +1,12 @@
-# 🚀 AstroWind
+#  KAPoly Website
 
+deployed to https://kapoly.de
+
+
+
+
+
+## Build with 🚀 AstroWind
 <img src="https://raw.githubusercontent.com/onwidget/.github/main/resources/astrowind/lighthouse-score.png" align="right"
      alt="AstroWind Lighthouse Score" width="100" height="358">
 
@@ -97,9 +104,9 @@ Inside **AstroWind** template, you'll see the following folders and files:
 │   │   ├── Favicons.astro
 │   │   └── Logo.astro
 │   ├── content/
-│   │   ├── post/
-│   │   │   ├── post-slug-1.md
-│   │   │   ├── post-slug-2.mdx
+│   │   ├── event/
+│   │   │   ├── event-slug-1.md
+│   │   │   ├── event-slug-2.mdx
 │   │   │   └── ...
 │   │   └-- config.ts
 │   ├── layouts/
@@ -195,7 +202,7 @@ apps:
     isEnabled: true # If the blog will be enabled
     postsPerPage: 6 # Number of posts per page
 
-    post:
+    event:
       isEnabled: true
       permalink: '/blog/%slug%' # Variables: %slug%, %year%, %month%, %day%, %hour%, %minute%, %second%, %category%
       robots:
@@ -219,7 +226,7 @@ apps:
       robots:
         index: false
 
-    isRelatedPostsEnabled: true # If a widget with related posts is to be displayed below each post
+    isRelatedPostsEnabled: true # If a widget with related posts is to be displayed below each event
     relatedPostsCount: 4 # Number of related posts to display
 
 analytics:

@@ -37,6 +37,10 @@ if (!props.decoding) {
   props.decoding = 'async';
 }
 
+if (!props.format) {
+  props.format = 'avif';
+}
+
 const _image = await findImage(props.src);
 
 let image: ImageType | undefined = undefined;

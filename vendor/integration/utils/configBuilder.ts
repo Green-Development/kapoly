@@ -8,6 +8,7 @@ export type Config = {
   i18n?: I18NConfig;
   apps?: {
     blog?: AppBlogConfig;
+    eventBlog?: AppEventBlogConfig;
   };
   ui?: unknown;
   analytics?: unknown;
@@ -37,6 +38,43 @@ export interface AppBlogConfig {
   isRelatedPostsEnabled: boolean;
   relatedPostsCount: number;
   post: {
+    isEnabled: boolean;
+    permalink: string;
+    robots: {
+      index: boolean;
+      follow: boolean;
+    };
+  };
+  list: {
+    isEnabled: boolean;
+    pathname: string;
+    robots: {
+      index: boolean;
+      follow: boolean;
+    };
+  };
+  category: {
+    isEnabled: boolean;
+    pathname: string;
+    robots: {
+      index: boolean;
+      follow: boolean;
+    };
+  };
+  tag: {
+    isEnabled: boolean;
+    pathname: string;
+    robots: {
+      index: boolean;
+      follow: boolean;
+    };
+  };
+}export interface AppEventBlogConfig {
+  isEnabled: boolean;
+  postsPerPage: number;
+  isRelatedPostsEnabled: boolean;
+  relatedPostsCount: number;
+  event: {
     isEnabled: boolean;
     permalink: string;
     robots: {
@@ -172,6 +210,49 @@ const getAppBlog = (config: Config) => {
   return merge({}, _default, config?.apps?.blog ?? {}) as AppBlogConfig;
 };
 
+const getAppEventBlog = (config: Config) => {
+  const _default = {
+    isEnabled: false,
+    postsPerPage: 6,
+    isRelatedPostsEnabled: false,
+    relatedPostsCount: 4,
+    post: {
+      isEnabled: true,
+      permalink: '/termine/%slug%',
+      robots: {
+        index: true,
+        follow: true,
+      },
+    },
+    list: {
+      isEnabled: true,
+      pathname: 'termine',
+      robots: {
+        index: true,
+        follow: true,
+      },
+    },
+    category: {
+      isEnabled: true,
+      pathname: 'category',
+      robots: {
+        index: true,
+        follow: true,
+      },
+    },
+    tag: {
+      isEnabled: true,
+      pathname: 'tag',
+      robots: {
+        index: false,
+        follow: true,
+      },
+    },
+  };
+
+  return merge({}, _default, config?.apps?.eventBlog ?? {}) as AppEventBlogConfig;
+};
+
 const getUI = (config: Config) => {
   const _default = {
     theme: 'system',
@@ -198,6 +279,7 @@ export default (config: Config) => ({
   I18N: getI18N(config),
   METADATA: getMetadata(config),
   APP_BLOG: getAppBlog(config),
+  APP_EVENT_BLOG: getAppEventBlog(config),
   UI: getUI(config),
   ANALYTICS: getAnalytics(config),
 });

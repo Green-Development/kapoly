@@ -1,0 +1,66 @@
+---
+import CallToAction from '~/components/widgets/CallToAction.astro';
+import Testimonials from '~/components/widgets/Testimonials.astro';
+import Layout from '~/layouts/PageLayout.astro';
+import FAQs from "../components/widgets/FAQs.astro";
+
+const metadata = {
+  title: 'FAQ',
+};
+---
+
+<Layout metadata={metadata}>
+  <FAQs title="Fragen und Antworten"
+        subtitle="Hier findest Du Antworten auf häufig gestellte Fragen rund um Polyamorie und alternative Beziehungsformen."
+        tagline="FAQs"
+        items={[
+          {
+            title: '„Polya… – wie bitte?!“',
+            description:
+              "Wörtlich übersetzt heißt Polyamorie „Vielliebe“ und bezeichnet ein Beziehungskonzept, bei der Liebesbeziehungen mit mehr als einem Menschen aktiv geführt werden können – und dürfen.",
+          },
+          {
+            title: "Was ist Polyamorie?",
+            description: "Polyamorie ist die Fähigkeit, mehr als eine Liebesbeziehung zur gleichen Zeit zu haben, mit dem Wissen und Einverständnis aller Beteiligten.",
+          },
+          {
+            title: "Was ist eine offene Beziehung?",
+            description: "Eine offene Beziehung ist eine Beziehung, in der die Partner:innen sexuell frei sind, aber emotional exklusiv bleiben können.",
+          },
+          {
+            title: "Wie finde ich heraus, ob Polyamorie etwas für mich ist?",
+            description: "Indem Du Dich mit dem Thema auseinandersetzt, Dich mit anderen Menschen darüber austauschst, und Deine eigenen Bedürfnisse und Wünsche reflektierst.",
+          },
+          {
+            title: "Wie sage ich meinem Partner, dass ich polyamor leben möchte?",
+            description: "Offen und ehrlich. Kommunikation ist der Schlüssel zu jeder Beziehung.",
+          },
+          {
+            title: "Was ist Beziehungsanarchie?",
+            description: "Beziehungsanarchie ist eine Form der Beziehungsführung, die sich gegen Hierarchien und Normen in Beziehungen richtet.",
+          },
+          {
+            title: "Was ist Solo-Poly?",
+            description: "Solo-Polyamorie ist eine Form der Polyamorie, bei der die Unabhängigkeit und Selbstbestimmung des Einzelnen im Vordergrund steht.",
+          }
+        ]} columns={1}>
+  </FAQs>
+  <CallToAction title="Finde weiterreichende Informationen:"
+    actions={[
+      {
+        variant: 'primary',
+        text: 'Ressourcen',
+        href: '/ressourcen',
+        target: '_self',
+        icon: 'tabler:book',
+      },
+      {
+        variant: 'secondary',
+        text: 'Termine',
+        href: '/termine',
+        target: '_self',
+        icon: 'tabler:book',
+      },
+    ]}
+  >
+</Layout>
