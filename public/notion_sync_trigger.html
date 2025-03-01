@@ -1,0 +1,31 @@
+<script>
+async function triggerGitHubAction() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const githubPAT = urlParams.get("auth");
+
+    if (!githubPAT) {
+        alert("Unauthorized: No Github PAT provided!");
+        return;
+    }
+
+    const response = await fetch(
+      "https://api.github.com/repos/Green-Development/kapoly/actions/workflows/deploy.yml/dispatches", 
+      {
+        method: "POST", 
+        headers: {
+            "Accept": "application/vnd.github.v3+json",
+            "Authorization": `Bearer ${githubPAT}`,
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({"ref": "main"})
+      });
+
+    if (response.ok) {
+        alert("Seite wird erfolgreich synchronisiert.");
+    } else {
+        alert("Failed to trigger action.");
+    }
+}
+
+triggerGitHubAction();
+</script>
