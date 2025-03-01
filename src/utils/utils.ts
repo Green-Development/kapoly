@@ -50,3 +50,25 @@ export const toUiAmount = (amount: number) => {
 
   return value;
 };
+
+export const notionTextToString = (text: Array<
+  | { type: "text"; text: { content: string; link: { url: string } | null } }
+  | { annotations: any; plain_text: string; href: string | null; type: "mention"; mention: any }
+  | { annotations: any; plain_text: string; href: string | null; type: "equation"; equation: { expression: string } }
+>): string => {
+  return text.map((t) => {
+    if (t.type === "text") {
+      return t.text.content;
+    } else if (t.type === "equation") {
+      return `$${t.equation.expression}$`; // Represent equations in LaTeX-like syntax
+    }
+    return t.plain_text; // Works for mentions and other cases
+  }).join("");
+};
+
+export const notionMultiSelectToStrings = (multi_select: Array<{
+  id: string,
+  name: string,
+  color: string
+}> | undefined): string[] =>
+  multi_select?.map((tag) => tag.name ?? '') ?? [];

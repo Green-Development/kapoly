@@ -1,9 +1,10 @@
 import type { PaginateFunction } from 'astro';
-import { getCollection } from 'astro:content';
+import { getCollection, render } from 'astro:content';
 import type { CollectionEntry } from 'astro:content';
-import type {Post, Taxonomy} from '~/types';
+import type { Post, Taxonomy } from '~/types';
 import { APP_BLOG } from 'astrowind:config';
 import { cleanSlug, trimSlash, BLOG_BASE, POST_PERMALINK_PATTERN, CATEGORY_BASE, TAG_BASE } from './permalinks';
+import { notionMultiSelectToStrings, notionTextToString } from "~/utils/utils.ts";
 
 const generatePermalink = async ({
   id,
@@ -41,61 +42,58 @@ const generatePermalink = async ({
 };
 
 const getNormalizedPost = async (post: CollectionEntry<'post'>): Promise<Post> => {
-  const { id, slug: rawSlug = '', data } = post;
-  const { Content, remarkPluginFrontmatter } = await post.render();
-
+  const {id, data} = post;
+  const {Content, remarkPluginFrontmatter} = await render(post);
   const {
-    publishDate: rawPublishDate = new Date(),
+    publishDate: rawPublishDate,
     updateDate: rawUpdateDate,
-    title,
-    excerpt,
-    image,
-    tags: rawTags = [],
-    category: rawCategory,
-    author,
-    draft = false,
-    metadata = {},
-  } = data;
+    excerpt: rawExcerpt,
+    image: rawImage,
+    tags: rawMultiSelectTags,
+    category: rawMultiSelectCategory,
+    author: rawAuthor,
+  } = data.properties;
 
-  const slug = cleanSlug(rawSlug); // cleanSlug(rawSlug.split('/').pop());
-  const publishDate = new Date(rawPublishDate);
-  const updateDate = rawUpdateDate ? new Date(rawUpdateDate) : undefined;
-
+  const title = notionTextToString(data.properties.Name.title);
+  const excerpt = notionTextToString(rawExcerpt.rich_text);
+  const image = rawImage?.files?.[0]?.type === 'file' ? rawImage.files[0].file.url : '~/assets/images/polyamory-flag.png';
+  const author = notionTextToString(rawAuthor.rich_text);
+  const rawCategory = notionMultiSelectToStrings(rawMultiSelectCategory.multi_select)[0] ?? '';
+  const rawTags = notionMultiSelectToStrings(rawMultiSelectTags?.multi_select);
+  const slug = cleanSlug(id); // cleanSlug(rawSlug.split('/').pop());
+  const publishDate = new Date(rawPublishDate.date?.start ?? new Date());
+  const updateDate = rawUpdateDate ? new Date(rawUpdateDate.date?.start ?? new Date()) : undefined;
+  const metadata = {title, description: excerpt};
   const category = rawCategory
     ? {
-        slug: cleanSlug(rawCategory),
-        title: rawCategory,
-      }
+      slug: cleanSlug(rawCategory),
+      title: rawCategory,
+    }
     : undefined;
-
   const tags = rawTags.map((tag: string) => ({
     slug: cleanSlug(tag),
     title: tag,
   }));
+  const permalink = await generatePermalink({id, slug, publishDate, category: category?.slug});
 
   return {
-    id: id,
-    slug: slug,
-    permalink: await generatePermalink({ id, slug, publishDate, category: category?.slug }),
+    id,
+    slug,
+    permalink,
+    publishDate,
+    updateDate,
 
-    publishDate: publishDate,
-    updateDate: updateDate,
+    title,
+    excerpt,
+    image,
+    category,
+    tags,
+    author,
 
-    title: title,
-    excerpt: excerpt,
-    image: image,
-
-    category: category,
-    tags: tags,
-    author: author,
-
-    draft: draft,
-
+    draft: false,
     metadata,
 
-    Content: Content,
-    // or 'content' in case you consume from API
-
+    Content,
     readingTime: remarkPluginFrontmatter?.readingTime,
   };
 };

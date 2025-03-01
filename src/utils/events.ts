@@ -1,5 +1,5 @@
 import type { PaginateFunction } from 'astro';
-import { getCollection } from 'astro:content';
+import { getCollection, render } from 'astro:content';
 import type { CollectionEntry } from 'astro:content';
 import type {Event, Taxonomy} from '~/types';
 import { APP_EVENT_BLOG } from 'astrowind:config';
@@ -11,7 +11,7 @@ import {
   EVENT_CATEGORY_BASE,
   EVENT_TAG_BASE,
 } from './permalinks';
-import {getFormattedDate} from "~/utils/utils.ts";
+import { getFormattedDate, notionMultiSelectToStrings, notionTextToString} from "~/utils/utils.ts";
 
 const generateEventPermalink = async ({
   id,
@@ -49,69 +49,67 @@ const generateEventPermalink = async ({
 };
 
 const getNormalizedEvent = async (event: CollectionEntry<'events'>): Promise<Event> => {
-  const { id, slug: rawSlug = '', data } = event;
-  const { Content, remarkPluginFrontmatter } = await event.render();
-
+  const { id, data } = event;
+  const { Content, remarkPluginFrontmatter } = await render(event);
   const {
-    publishDate: rawPublishDate = new Date(),
+    publishDate: rawPublishDate,
     updateDate: rawUpdateDate,
     date: rawDate,
-    title,
     excerpt: rawExcerpt,
-    location,
-    image,
-    tags: rawTags = [],
-    category: rawCategory,
-    author,
-    draft = false,
-    metadata = {},
-  } = data;
+    image: rawImage,
+    tags: rawMultiSelectTags,
+    category: rawMultiSelectCategory,
+    author: rawAuthor,
+  } = data.properties;
 
-  const slug = cleanSlug(rawSlug); // cleanSlug(rawSlug.split('/').pop());
-  const publishDate = new Date(rawPublishDate);
-  const date = new Date(rawDate)
+  const title = notionTextToString(data.properties.Name.title);
+  const date = new Date(rawDate.date?.start ?? new Date())
   const time = date.getHours().toString().padStart(2, '0') + ":" + date.getMinutes().toString().padStart(2, '0') +" Uhr"
-  const updateDate = rawUpdateDate ? new Date(rawUpdateDate) : undefined;
-
+  const location = notionTextToString(data.properties.location.rich_text);
+  const image = rawImage?.files?.[0]?.type === 'file' ? rawImage.files[0].file.url : '~/assets/images/polyamory-flag.png';
+  const author = notionTextToString(rawAuthor.rich_text);
+  const rawCategory = notionMultiSelectToStrings(rawMultiSelectCategory?.multi_select)[0];
+  const rawTags = notionMultiSelectToStrings(rawMultiSelectTags?.multi_select);
+  const slug = cleanSlug(id); // cleanSlug(rawSlug.split('/').pop());
+  const publishDate = new Date(rawPublishDate?.date?.start ?? new Date());
+  const updateDate = rawUpdateDate ? new Date(rawUpdateDate?.date?.start ?? new Date()) : undefined;
   const category = rawCategory
     ? {
         slug: cleanSlug(rawCategory),
         title: rawCategory,
       }
     : undefined;
-
   const tags = rawTags.map((tag: string) => ({
     slug: cleanSlug(tag),
     title: tag,
   }));
-  const excerpt = rawExcerpt ? rawExcerpt : `${getFormattedDate(date)} um ${time}, ${location}`
+  const permalink = await generateEventPermalink({ id, slug, publishDate, category: category?.slug })
+  const excerpt = notionTextToString(rawExcerpt.rich_text) !== "" 
+    ? notionTextToString(rawExcerpt.rich_text) 
+    : `${getFormattedDate(date)} um ${time}, ${location}`
+  const metadata = { title, description: excerpt };
 
   return {
-    id: id,
-    slug: slug,
-    permalink: await generateEventPermalink({ id, slug, publishDate, category: category?.slug }),
-
+    id,
+    slug,
+    permalink,
     date,
     time,
-    publishDate: publishDate,
-    updateDate: updateDate,
+    publishDate,
+    updateDate,
 
-    title: title,
+    title,
+    excerpt,
     location,
-    excerpt: excerpt,
-    image: image,
+    image,
+    category,
+    tags,
+    author,
 
-    category: category,
-    tags: tags,
-    author: author,
-
-    draft: draft,
-
+    draft: false,
     metadata,
 
-    Content: Content,
-    // or 'content' in case you consume from API
-
+    Content,
     readingTime: remarkPluginFrontmatter?.readingTime,
   };
 };

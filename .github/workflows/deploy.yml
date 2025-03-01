@@ -22,8 +22,12 @@ jobs:
         uses: actions/checkout@v4
       - name: Install, build, and upload your site
         uses: withastro/action@v3
-        with:
-          package-manager: pnpm@latest
+        env:
+          NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
+          NOTION_BLOG_DATABASE_ID: ${{ secrets.NOTION_BLOG_DATABASE_ID }}
+          NOTION_EVENTS_DATABASE_ID: ${{ secrets.NOTION_EVENTS_DATABASE_ID }}
+          NOTION_RESSOURCES_DATABASE_ID: ${{ secrets.NOTION_RESSOURCES_DATABASE_ID }}
+          NOTION_FAQ_DATABASE_ID: ${{ secrets.NOTION_FAQ_DATABASE_ID }}
 
   deploy:
     needs: build

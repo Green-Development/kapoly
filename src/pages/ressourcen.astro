@@ -4,34 +4,36 @@ import Hero from '~/components/widgets/Hero.astro';
 import Layout from '~/layouts/PageLayout.astro';
 import BlogHighlightedPosts from "../components/widgets/BlogHighlightedPosts.astro";
 import Button from "../components/ui/Button.astro";
-import {getCollection} from "astro:content";
-import type {CallToAction} from "../types";
+import { getCollection } from "astro:content";
+import type { CallToAction } from "../types";
+import {notionMultiSelectToStrings, notionTextToString} from "../utils/utils";
 
 const resources = await getCollection('resources');
 const retrieveEntries = (category: string, defaultIcon: string, defaultLinkText: string, defaultLinkIcon?: string) =>
   resources
-    .filter((item) => item.data.category === category)
+    .filter((item) => notionMultiSelectToStrings(item.data.properties.category.multi_select)[0] === category)
     .map((item) => {
       const {
-        title, subtitle, description, link, linkText, linkIcon, icon
-      } = item.data;
+        Name: title, subtitle, description, link, linkText, linkIcon, icon
+      } = item.data.properties;
+
       return {
-        title,
-        subtitle,
-        description,
+        title: notionTextToString(title.title),
+        subtitle: notionTextToString(subtitle.rich_text),
+        description: notionTextToString(description.rich_text),
         callToAction: (
-          link
+          link.url
             ? {
               variant: 'tertiary',
-              text: linkText ?? defaultLinkText,
-              href: link,
+              text: notionTextToString(linkText.rich_text) || defaultLinkText,
+              href: link.url,
               target: '_blank',
-              icon: `tabler:${linkIcon ?? defaultLinkIcon ?? defaultIcon}`,
+              icon: `tabler:${notionTextToString(linkIcon.rich_text) || defaultLinkIcon || defaultIcon}`,
               class: "hover:text-accent dark:hover:bg-accent w-full"
             }
             : undefined
         ) as CallToAction | undefined,
-        icon: `tabler:${icon ?? defaultIcon}`
+        icon: `tabler:${notionTextToString(icon.rich_text) || defaultIcon}`
       }
     });
 
