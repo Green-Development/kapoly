@@ -30,32 +30,20 @@ Weitere Informationen finden Sie in der [GitHub Privacy Policy](https://docs.git
 
 ## Erhebung und Verarbeitung personenbezogener Daten
 
-### 1. **Seitenaufrufe (GoatCounter)**
-
-Wir nutzen den Open-Source-Dienst **GoatCounter**, um anonyme Statistiken über die Nutzung der Website zu erstellen.  
-- **Erhobene Daten:** GoatCounter speichert keine personenbezogenen Daten wie IP-Adressen. Es werden ausschließlich anonyme Informationen über die aufgerufenen Seiten, Verweildauer und verwendete Geräte erfasst.  
-- **Speicherdauer:** Die Daten werden nicht dauerhaft gespeichert.  
-- **Empfänger:** GoatCounter verarbeitet die Daten auf Servern innerhalb der Europäischen Union.  
-
-**Rechtsgrundlage:** Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse, Analyse der Website-Nutzung).  
-Weitere Informationen finden Sie in den [GoatCounter Datenschutzrichtlinien](https://www.goatcounter.com/privacy).
-
----
-
-### 2. **Kontaktformular (FabForm)**
+### 1. **Kontaktformular (FabForm)**
 
 Unser Kontaktformular wird über **FabForm** bereitgestellt. Wenn Sie das Formular nutzen, werden die von Ihnen eingegebenen Daten (z. B. Name, E-Mail-Adresse, Nachricht) an uns übermittelt.  
 - **Erhobene Daten:** Name, E-Mail-Adresse und der Inhalt Ihrer Nachricht mit Betreff.  
 - **Zweck:** Die Daten werden ausschließlich zur Bearbeitung Ihrer Anfrage verwendet.  
 - **Speicherdauer:** Ihre Daten werden gelöscht, sobald die Bearbeitung abgeschlossen ist, sofern keine gesetzlichen Aufbewahrungsfristen bestehen.  
-- **Empfänger:** FabForm verarbeitet die Daten auf Servern innerhalb der Europäischen Union.  
+- **Empfänger:** FabForm verarbeitet die Daten nach Ihrer [Datenschutzrichtlinien](https://fabform.io/privacy) und leitet sie die oben genannten erhobenen Daten via E-Mail an uns.  
 
 **Rechtsgrundlage:** Art. 6 Abs. 1 lit. b DSGVO (Vertragserfüllung bzw. vorvertragliche Maßnahmen).  
 Weitere Informationen finden Sie in den [FabForm Datenschutzrichtlinien](https://fabform.io/privacy).
 
 ---
 
-### 3. **E-Mail-Kommunikation**
+### 2. **E-Mail-Kommunikation**
 
 Wenn Sie uns per E-Mail kontaktieren, speichern wir Ihre E-Mail-Adresse sowie die von Ihnen übermittelten Informationen.  
 - **Erhobene Daten:** E-Mail-Adresse, Name und der Inhalt Ihrer Nachricht.  
@@ -69,7 +57,6 @@ Wenn Sie uns per E-Mail kontaktieren, speichern wir Ihre E-Mail-Adresse sowie di
 ## Empfänger von Daten
 
 - **GitHub (USA):** Zum Hosting der Website werden Daten wie IP-Adressen und technische Verbindungsinformationen verarbeitet. GitHub hat sich zur Einhaltung der DSGVO verpflichtet und Standardvertragsklauseln implementiert.  
-- **GoatCounter (EU):** Zum Erfassen anonymer Nutzungsstatistiken.  
 - **FabForm (EU):** Zur Bereitstellung des Kontaktformulars und Verarbeitung der eingegebenen Daten.  
 
 ---
@@ -96,7 +83,6 @@ Wir setzen technische und organisatorische Maßnahmen ein, um Ihre Daten vor unb
 
 ## Speicherdauer
 
-- **Seitenaufrufe (GoatCounter):** Daten werden anonym erfasst und nicht dauerhaft gespeichert.  
 - **Kontaktformular (FabForm):** Daten werden gelöscht, sobald die Anfrage abgeschlossen ist, sofern keine gesetzlichen Aufbewahrungspflichten bestehen.  
 - **E-Mail-Kommunikation:** Daten werden gelöscht, sobald sie nicht mehr erforderlich sind, sofern keine gesetzlichen Aufbewahrungspflichten bestehen.  
 
@@ -108,4 +94,4 @@ Wir behalten uns das Recht vor, diese Datenschutzerklärung bei Bedarf anzupasse
 
 ---
 
-*Stand: 01.01.2025*
+*Stand: 01.03.2025*

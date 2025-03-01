@@ -88,8 +88,6 @@ apps:
   
 analytics:
   vendors:
-    goatcounter:
-      id: kapoly
 
 ui:
   theme: 'system' # Values: "system" | "light" | "dark" | "light:only" | "dark:only"
