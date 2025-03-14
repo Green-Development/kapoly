@@ -63,30 +63,21 @@ const link = APP_BLOG?.post?.isEnabled ? getPermalink(post.permalink, 'post') : 
       ))
   }
   <div class="mt-2">
-    <header>
-      <div class="mb-1">
-        <span class="text-sm">
-          <Icon name="tabler:clock" class="w-3.5 h-3.5 inline-block -mt-0.5 dark:text-gray-400" />
-          <time datetime={String(post.publishDate)} class="inline-block">{getFormattedDate(post.publishDate)}</time>
-          {
+    <header role="presentation">
+      <div class="mb-1" role="presentation">
+        <span class="text-sm" role="presentation">
+          <Icon name="tabler:clock" aria-label="Uhr" class="w-3.5 h-3.5 inline-block -mt-0.5 dark:text-gray-400" /><span aria-hidden="true">{' '}</span>
+          <time datetime={String(post.publishDate)} aria-label="Veröffentlichungsdatum" class="inline-block">{getFormattedDate(post.publishDate)}</time>{
             post.author && (
-              <>
-                {' '}
-                · <Icon name="tabler:user" class="w-3.5 h-3.5 inline-block -mt-0.5 dark:text-gray-400" />
-                <span>{post.author.replaceAll('-', ' ')}</span>
-              </>
+              <span aria-hidden="true">{' '} · </span><Icon name="tabler:user" aria-label="User" class="w-3.5 h-3.5 inline-block -mt-0.5 dark:text-gray-400" /><span aria-label="Author">{post.author.replaceAll('-', ' ')}</span>
             )
-          }
-          {
+          }{
             post.category && (
-              <>
-                {' '}
-                ·{' '}
-                <a class="hover:underline" href={getPermalink(post.category.slug, 'category')}>
+                <span aria-hidden="true">{' '} · </span>
+                <a class="hover:underline" aria-label="Kategorie" href={getPermalink(post.category.slug, 'category')}>
                   {post.category.title}
                 </a>
-              </>
-            )
+          )
           }
         </span>
       </div>
@@ -109,7 +100,7 @@ const link = APP_BLOG?.post?.isEnabled ? getPermalink(post.permalink, 'post') : 
     {post.excerpt && <p class="flex-grow text-muted dark:text-slate-400 text-lg">{post.excerpt}</p>}
     {
       post.tags && Array.isArray(post.tags) ? (
-        <footer class="mt-5">
+        <footer class="mt-5" role="presentation">
           <PostTags tags={post.tags} />
         </footer>
       ) : (

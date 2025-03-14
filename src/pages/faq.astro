@@ -21,13 +21,14 @@ const faqItems = faqCollection.map((item) => {
 ---
 
 <Layout metadata={metadata}>
-  <FAQs title="Fragen und Antworten"
+  <FAQs id="FAQ"
+        title="Fragen und Antworten"
         subtitle="Hier findest Du Antworten auf häufig gestellte Fragen rund um Polyamorie und alternative Beziehungsformen."
         tagline="FAQs"
         items={faqItems} 
         columns={1}>
   </FAQs>
-  <CallToAction title="Finde weiterreichende Informationen:"
+  <CallToAction id="Weitere Informationen" title="Finde weiterreichende Informationen:"
     actions={[
       {
         variant: 'primary',

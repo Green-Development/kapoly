@@ -1,10 +1,17 @@
 ---
 import { SITE } from 'astrowind:config';
+import { getHomePermalink } from '~/utils/permalinks';
 ---
 
-<span
-  class="self-center ml-2 rtl:ml-0 rtl:mr-2  font-bold whitespace-nowrap"
+<a
+  href={getHomePermalink()}
+  class="self-center ml-2 rtl:ml-0 rtl:mr-2 font-bold whitespace-nowrap"
+  aria-label="Home"
 >
-  <span class="text-secondary dark:text-primary text-2xl md:text-xl">{SITE?.name}</span><br/>
-  <span class="text-accent text-sm pt-0">Karlsruher Stammtisch für Polyamorie </span>
-</span>
+  <span class="text-secondary dark:text-primary text-2xl md:text-xl">
+    {SITE?.name}
+  </span><br />
+  <span class="text-accent text-sm pt-0">
+    Karlsruher Stammtisch für Polyamorie
+  </span>
+</a>

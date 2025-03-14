@@ -31,9 +31,12 @@ const {
         }`,
         containerClass
       )}
+      role="list"
     >
       {items.map(({ title, subtitle, description, icon, callToAction, classes: itemClasses = {} }) => (
         <div
+          role="listitem"
+          aria-label={title}
           class={twMerge(
             'relative flex flex-col intersect-once intersect-quarter intercept-no-queue motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade min-h-full',
             panelClass,
@@ -41,17 +44,18 @@ const {
           )}
         >
           {(icon || defaultIcon) && (
-            <Icon name={icon || defaultIcon} class={twMerge('mb-2 w-10 h-10', defaultIconClass, itemClasses?.icon)} />
+            <Icon name={icon || defaultIcon} class={twMerge('mb-2 w-10 h-10', defaultIconClass, itemClasses?.icon)} aria-label={icon || defaultIcon} />
           )}
-          <div class={twMerge('text-xl font-bold', titleClass, itemClasses?.title)}>{title}</div>
+          {title && (<div aria-label="Titel" class={twMerge('text-xl font-bold', titleClass, itemClasses?.title)}>{title}</div>
+          )}
           {subtitle && (
-            <div class={twMerge('text-xl', titleClass, itemClasses?.subtitle)}>– {subtitle}</div>
+            <div aria-label="Untertitel" class={twMerge('text-xl', titleClass, itemClasses?.subtitle)}>– {subtitle}</div>
           )}
           {description && (
             <p class={twMerge('text-muted mt-2', descriptionClass, itemClasses?.description)} set:html={description} />
           )}
           {callToAction && (
-            <div class="mt-auto pt-2">
+            <div class="mt-auto pt-2" role="presentation">
               <Button {...callToAction} />
             </div>
           )}

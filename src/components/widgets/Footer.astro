@@ -33,14 +33,14 @@ const {socialLinks = [], secondaryLinks = [], links = [], footNote = '', theme =
   >
     <div class="grid grid-cols-12 gap-4 gap-y-8 sm:gap-8 py-0">
       <div class="col-span-12 lg:col-span-4">
-        <div class="mb-2">
+        <div class="mb-2" aria-label="Home">
           <a class="inline-block font-bold text-xl" href={getHomePermalink()}>{SITE?.name}</a>
         </div>
         <div class="text-sm text-muted flex gap-1 mb-2">
           {
             secondaryLinks.map(({ text, href }, index) => (
               <>
-                {index !== 0 ? ' · ' : ''}
+                <span aria-hidden="true"> {index !== 0 ? ' · ' : ''} </span>
                 <a
                   class="text-muted hover:text-gray-700 dark:text-gray-400 hover:underline transition duration-150 ease-in-out"
                   href={href}
@@ -50,7 +50,7 @@ const {socialLinks = [], secondaryLinks = [], links = [], footNote = '', theme =
             ))
           }
         </div>
-        <div id="wcb" class="carbonbadge wcb-d flex"></div>
+        <div id="wcb" aria-label="Website Carbon Emission" class="carbonbadge wcb-d flex"></div>
         <script src="https://unpkg.com/website-carbon-badges@1.1.3/b.min.js" defer></script>
       </div>
       {
@@ -79,7 +79,7 @@ const {socialLinks = [], secondaryLinks = [], links = [], footNote = '', theme =
     <div class="md:flex md:items-center md:justify-between py-0">
       {
         socialLinks?.length ? (
-          <ul class="flex mb-4 md:order-1 -ml-2 md:ml-4 md:mb-0 rtl:ml-0 rtl:-mr-2 rtl:md:ml-0 rtl:md:mr-4">
+          <ul aria-label="Social Links" class="flex mb-4 md:order-1 -ml-2 md:ml-4 md:mb-0 rtl:ml-0 rtl:-mr-2 rtl:md:ml-0 rtl:md:mr-4">
             {socialLinks.map(({ ariaLabel, href, text, icon }) => (
               <li>
                 <a
@@ -87,7 +87,7 @@ const {socialLinks = [], secondaryLinks = [], links = [], footNote = '', theme =
                   aria-label={ariaLabel}
                   href={href}
                 >
-                  {icon && <Icon name={icon} class="w-5 h-5" />}
+                  {icon && <Icon name={icon} aria-label={ariaLabel} class="w-5 h-5" />}
                   <Fragment set:html={text} />
                 </a>
               </li>

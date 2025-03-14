@@ -22,13 +22,13 @@ const { prevUrl, nextUrl, prevText = 'Neuere Einträge', nextText = 'Ältere Ein
           class={`md:px-3 px-3 mr-2 ${!prevUrl ? 'invisible' : ''}`}
           href={getPermalink(prevUrl)}
         >
-          <Icon name="tabler:chevron-left" class="w-6 h-6" />
-          <p class="ml-2">{prevText}</p>
+          <Icon name="tabler:chevron-left" aria-hidden="true" class="w-6 h-6" />
+          <p class="ml-2" role="presentation">{prevText}</p>
         </Button>
 
         <Button variant="tertiary" class={`md:px-3 px-3 ${!nextUrl ? 'invisible' : ''}`} href={getPermalink(nextUrl)}>
-          <span class="mr-2">{nextText}</span>
-          <Icon name="tabler:chevron-right" class="w-6 h-6" />
+          <span class="mr-2" role="presentation">{nextText}</span>
+          <Icon name="tabler:chevron-right" aria-hidden="true" class="w-6 h-6" />
         </Button>
       </div>
     </div>

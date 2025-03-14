@@ -28,7 +28,8 @@ const link = APP_EVENT_BLOG?.event?.isEnabled ? getPermalink(event.permalink, 'p
     image &&
       (link ? (
         <a class="relative block group" href={link ?? 'javascript:void(0)'}>
-          <div class="relative h-0 pb-[56.25%] md:pb-[75%] md:h-72 lg:pb-[56.25%] overflow-hidden bg-gray-400 dark:bg-slate-700 rounded shadow-lg">
+          <div
+            class="relative h-0 pb-[56.25%] md:pb-[75%] md:h-72 lg:pb-[56.25%] overflow-hidden bg-gray-400 dark:bg-slate-700 rounded shadow-lg">
             {image && (
               <Image
                 src={image}
@@ -45,7 +46,8 @@ const link = APP_EVENT_BLOG?.event?.isEnabled ? getPermalink(event.permalink, 'p
           </div>
         </a>
       ) : (
-        <div class="relative h-0 pb-[56.25%] md:pb-[75%] md:h-72 lg:pb-[56.25%] overflow-hidden bg-gray-400 dark:bg-slate-700 rounded shadow-lg">
+        <div
+          class="relative h-0 pb-[56.25%] md:pb-[75%] md:h-72 lg:pb-[56.25%] overflow-hidden bg-gray-400 dark:bg-slate-700 rounded shadow-lg">
           {image && (
             <Image
               src={image}
@@ -62,9 +64,9 @@ const link = APP_EVENT_BLOG?.event?.isEnabled ? getPermalink(event.permalink, 'p
         </div>
       ))
   }
-  <div class="mt-2">
-    <header>
-            <h2 class="text-xl sm:text-2xl font-bold leading-tight mb-2 font-heading dark:text-slate-300">
+  <div class="mt-2" role="presentation">
+    <header role="presentation">
+      <h2 class="text-xl sm:text-2xl font-bold leading-tight mb-2 font-heading dark:text-slate-300">
         {
           link ? (
             <a
@@ -78,45 +80,35 @@ const link = APP_EVENT_BLOG?.event?.isEnabled ? getPermalink(event.permalink, 'p
           )
         }
       </h2>
-      <div class="mb-1">
-        <span class="text-sm">
-          <Icon name="tabler:calendar" class="w-3.5 h-3.5 inline-block -mt-0.5 dark:text-gray-400" />
-          <time datetime={String(event.date)} class="inline-block">{getFormattedDate(event.date)}</time>
-          {
-            event.time && (
-              <>
-                {' '}
-                <br/> <Icon name="tabler:clock" class="w-3.5 h-3.5 inline-block -mt-0.5 dark:text-gray-400" />
-                <span>{event.time}</span>
-              </>
-            )
-          } 
-          {
+        <div class="mb-1" aria-label="Termininformationen">
+          <span class="text-sm" role="presentation">
+            <Icon name="tabler:calendar" aria-label="Kalendar"
+                  class="w-3.5 h-3.5 inline-block -mt-0.5 dark:text-gray-400"/><span aria-hidden="true">{' '}</span><time
+            datetime={String(event.date)} aria-label="Datum" class="inline-block">{getFormattedDate(event.date)}</time>{
+              event.time && (
+                <span aria-hidden="true">{' '}<br/>{' '}</span>
+                <Icon name="tabler:clock" aria-label="Uhr" class="w-3.5 h-3.5 inline-block -mt-0.5 dark:text-gray-400"/><span aria-hidden="true">{' '}</span>
+                <span aria-label="Uhrzeit">{event.time}</span>
+              )
+            }{
             event.location && (
-              <>
-                {' '}
-                <br/> <Icon name="tabler:map-pin" class="w-3.5 h-3.5 inline-block -mt-0.5 dark:text-gray-400" />
-                <span>{event.location}</span>
-              </>
+              <span aria-hidden="true">{' '}<br/></span>
+              <Icon name="tabler:map-pin" aria-label="Karten Pin"
+                    class="w-3.5 h-3.5 inline-block -mt-0.5 dark:text-gray-400"/><span aria-hidden="true">{' '}</span>
+              <span aria-label="Ort">{event.location}</span>
             )
-          }
-          {
-            event.category && (
-              <>
-                {' '}
-                <br/> <Icon name="tabler:tag" class="w-3.5 h-3.5 inline-block -mt-0.5 dark:text-gray-400" />
-                <a class="hover:underline" href={getPermalink(event.category.slug, 'eventCategory')}>
-                  {event.category.title}
-                </a>
-              </>
-            )
-          }
-        </span>
+          }{event.category && (
+            <span aria-hidden="true">{' '}<br/></span>
+            <Icon name="tabler:tag" aria-label="Kategorie" class="w-3.5 h-3.5 inline-block -mt-0.5 dark:text-gray-400"/><a class="hover:underline" href={getPermalink(event.category.slug, 'eventCategory')}>
+              {event.category.title}
+            </a>
+          )
+          }</span>
       </div>
     </header>
     {
       event.tags && Array.isArray(event.tags) ? (
-        <footer class="mt-5">
+        <footer class="mt-5" role="presentation">
           <EventTags tags={event.tags} />
         </footer>
       ) : (

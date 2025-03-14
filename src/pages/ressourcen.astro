@@ -58,19 +58,19 @@ const metadata = {
     title="Empfehlenswerte Bücher, Podcasts und Artikel"
     subtitle="Hier ist unsere Auflistung über empfehlenswerte Medien zum Thema alternativer Beziehungsgestaltung. Sie ist keineswegs vollständig, aber vielleicht hilft sie dir weiter."
   />
-  <section id="Inhaltverzeichnis" class="max-w-4xl mx-auto dark:bg-slate-900 shadow-md rounded-lg p-6 motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade">
-    <ul class="flex space-x-4 justify-evenly pb-2">
-      <Button text="Bücher" href="#Bücher" variant="secondary"
+  <section id="Inhaltverzeichnis" aria-label="Inhaltsverzeichnis" class="max-w-4xl mx-auto dark:bg-slate-900 shadow-md rounded-lg p-6 motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade">
+    <ul class="flex space-x-4 justify-evenly pb-2" role="menu">
+      <Button text="Bücher" href="#Bücher" variant="secondary" role="menuitem"
               class="dark:hover:bg-primary hover:bg-primary hover:text-white"/>
-      <Button text="Podcasts" href="#Podcasts" variant="secondary"
+      <Button text="Podcasts" href="#Podcasts" variant="secondary" role="menuitem"
               class="dark:hover:bg-accent hover:bg-accent hover:text-white"/>
-      <Button text="Artikel" href="#Artikel" variant="secondary"
+      <Button text="Artikel" href="#Artikel" variant="secondary" role="menuitem"
               class="dark:hover:bg-secondary hover:bg-secondary hover:text-white"/>
-      <Button text="<nobr>Social Media</nobr>" href="#SocialMedia" variant="secondary"
+      <Button text="<nobr>Social Media</nobr>" href="#SocialMedia" variant="secondary" role="menuitem"
               class="dark:hover:bg-primary hover:bg-primary hover:text-white"/>
-      <Button text="Webseiten" href="#Webseiten" variant="secondary"
+      <Button text="Webseiten" href="#Webseiten" variant="secondary" role="menuitem"
               class="dark:hover:bg-accent hover:bg-accent hover:text-white"/>
-      <Button text="Sonstige" href="#Sonstige" variant="secondary"
+      <Button text="Sonstige" href="#Sonstige" variant="secondary" role="menuitem"
               class="dark:hover:bg-secondary hover:bg-secondary hover:text-white"/>
     </ul>
   </section>
@@ -110,8 +110,4 @@ const metadata = {
     columns={3}
     items={other}
   />
-
-  <BlogHighlightedPosts postIds={["winterwanderung"]}></BlogHighlightedPosts>
-
-
 </Layout>
