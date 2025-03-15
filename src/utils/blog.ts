@@ -49,6 +49,7 @@ const getNormalizedPost = async (post: CollectionEntry<'post'>): Promise<Post> =
     updateDate: rawUpdateDate,
     excerpt: rawExcerpt,
     image: rawImage,
+    imageDescription: rawImageDescription,
     tags: rawMultiSelectTags,
     category: rawMultiSelectCategory,
     author: rawAuthor,
@@ -57,6 +58,7 @@ const getNormalizedPost = async (post: CollectionEntry<'post'>): Promise<Post> =
   const title = notionTextToString(data.properties.Name.title);
   const excerpt = notionTextToString(rawExcerpt.rich_text);
   const image = rawImage?.files?.[0]?.type === 'file' ? rawImage.files[0].file.url : '~/assets/images/polyamory-flag.png';
+  const alt = rawImage?.files?.[0]?.type === 'file' ? notionTextToString(rawImageDescription?.rich_text ?? []): 'Polyamorie-Flagge mit drei horizontalen Streifen: Blau oben, Rot in der Mitte und Dunkellila unten. Links zeigt ein weißes Chevron-Dreieck nach innen und enthält ein gelbes Herz.';
   const author = notionTextToString(rawAuthor.rich_text);
   const rawCategory = notionMultiSelectToStrings(rawMultiSelectCategory.multi_select)[0] ?? '';
   const rawTags = notionMultiSelectToStrings(rawMultiSelectTags?.multi_select);
@@ -86,6 +88,7 @@ const getNormalizedPost = async (post: CollectionEntry<'post'>): Promise<Post> =
     title,
     excerpt,
     image,
+    alt,
     category,
     tags,
     author,

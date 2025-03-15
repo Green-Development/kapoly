@@ -36,7 +36,7 @@ const link = APP_BLOG?.post?.isEnabled ? getPermalink(post.permalink, 'post') : 
                 widths={[400, 900]}
                 width={900}
                 sizes="(max-width: 900px) 400px, 900px"
-                alt={post.title}
+                alt={post.alt}
                 aspectRatio="16:9"
                 loading="lazy"
                 decoding="async"
@@ -53,7 +53,7 @@ const link = APP_BLOG?.post?.isEnabled ? getPermalink(post.permalink, 'post') : 
               widths={[400, 900]}
               width={900}
               sizes="(max-width: 900px) 400px, 900px"
-              alt={post.title}
+              alt={post.alt}
               aspectRatio="16:9"
               loading="lazy"
               decoding="async"
@@ -66,10 +66,10 @@ const link = APP_BLOG?.post?.isEnabled ? getPermalink(post.permalink, 'post') : 
     <header role="presentation">
       <div class="mb-1" role="presentation">
         <span class="text-sm" role="presentation">
-          <Icon name="tabler:clock" aria-label="Uhr" class="w-3.5 h-3.5 inline-block -mt-0.5 dark:text-gray-400" /><span aria-hidden="true">{' '}</span>
+          <Icon name="tabler:clock" aria-hidden="true" class="w-3.5 h-3.5 inline-block -mt-0.5 dark:text-gray-400" /><span aria-hidden="true">{' '}</span>
           <time datetime={String(post.publishDate)} aria-label="Veröffentlichungsdatum" class="inline-block">{getFormattedDate(post.publishDate)}</time>{
             post.author && (
-              <span aria-hidden="true">{' '} · </span><Icon name="tabler:user" aria-label="User" class="w-3.5 h-3.5 inline-block -mt-0.5 dark:text-gray-400" /><span aria-label="Author">{post.author.replaceAll('-', ' ')}</span>
+              <span aria-hidden="true">{' '} · </span><Icon name="tabler:user" aria-hidden="true" class="w-3.5 h-3.5 inline-block -mt-0.5 dark:text-gray-400" /><span aria-label="Author">{post.author.replaceAll('-', ' ')}</span>
             )
           }{
             post.category && (

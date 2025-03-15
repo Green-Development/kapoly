@@ -22,6 +22,8 @@ export interface Post {
   excerpt?: string;
   /**  */
   image?: ImageMetadata | string;
+  /**  */
+  alt?: string;
 
   /**  */
   category?: Taxonomy;
@@ -69,6 +71,9 @@ export interface Event {
   excerpt?: string;
   /**  */
   image?: ImageMetadata | string;
+  
+  /**  */
+  alt?: string;
 
   /**  */
   category?: Taxonomy;

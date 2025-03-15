@@ -44,7 +44,7 @@ const {
           )}
         >
           {(icon || defaultIcon) && (
-            <Icon name={icon || defaultIcon} class={twMerge('mb-2 w-10 h-10', defaultIconClass, itemClasses?.icon)} aria-label={icon || defaultIcon} />
+            <Icon name={icon || defaultIcon} class={twMerge('mb-2 w-10 h-10', defaultIconClass, itemClasses?.icon)} aria-hidden="true" />
           )}
           {title && (<div aria-label="Titel" class={twMerge('text-xl font-bold', titleClass, itemClasses?.title)}>{title}</div>
           )}
