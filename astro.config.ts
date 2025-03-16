@@ -15,8 +15,6 @@ import astrowind from './vendor/integration';
 
 import { readingTimeRemarkPlugin, responsiveTablesRehypePlugin, lazyImagesRehypePlugin } from './src/utils/frontmatter';
 
-import preload from 'astro-preload';
-
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const hasExternalScripts = false;
@@ -55,7 +53,6 @@ export default defineConfig({
       })
     ),
 
-    preload(),
     compress({
       CSS: true,
       HTML: {
