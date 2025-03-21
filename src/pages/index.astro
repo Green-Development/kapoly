@@ -6,6 +6,7 @@ import Hero from '~/components/widgets/Hero.astro';
 import BlogLatestPosts from '~/components/widgets/BlogLatestPosts.astro';
 import CallToAction from '~/components/widgets/CallToAction.astro';
 import BlogLatestEvents from "../components/widgets/BlogLatestEvents.astro";
+import {getEventBlogPermalink, getPermalink} from "../utils/permalinks";
 
 const metadata = {
   title: 'KApoly – Karlsruher Stammtisch für Polyamorie',
@@ -19,12 +20,12 @@ const metadata = {
   <Hero
     actions={[
 
-      { text: '<nobr>Begriffserklärung</nobr>', href: '/blog/1a86d97e-a066-80d1-a15d-fbfc769fece9', icon: 'tabler:book' },
-      { text: '<nobr>Häufige Fragen</nobr>', href: '/faq', icon: 'tabler:question-mark' },
+      { text: '<nobr>Begriffserklärung</nobr>', href: getPermalink('/blog/1a86d97e-a066-80d1-a15d-fbfc769fece9'), icon: 'tabler:book' },
+      { text: '<nobr>Häufige Fragen</nobr>', href: getPermalink('/faq'), icon: 'tabler:question-mark' },
           {
         variant: 'primary',
         text: 'Termine',
-        href: '/termine',
+        href: getEventBlogPermalink(),
         target: '_self',
         icon: 'tabler:calendar',
       },]}
@@ -61,14 +62,14 @@ const metadata = {
       {
         variant: 'primary',
         text: 'Ressourcen',
-        href: '/ressourcen',
+        href: getPermalink('/ressourcen'),
         target: '_self',
         icon: 'tabler:book',
       },
       {
         variant: 'secondary',
         text: 'FAQ',
-        href: '/faq',
+        href: getPermalink('/faq'),
         target: '_self',
         icon: 'tabler:question-mark',
       },
