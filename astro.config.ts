@@ -60,9 +60,9 @@ export default defineConfig({
           removeAttributeQuotes: false,
         },
       },
-      Image: true,
+      Image: false,
       JavaScript: true,
-      SVG: true,
+      SVG: false,
       Logger: 1,
     }),
 

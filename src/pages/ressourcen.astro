@@ -2,7 +2,6 @@
 import Features2 from '~/components/widgets/Features2.astro';
 import Hero from '~/components/widgets/Hero.astro';
 import Layout from '~/layouts/PageLayout.astro';
-import BlogHighlightedPosts from "../components/widgets/BlogHighlightedPosts.astro";
 import Button from "../components/ui/Button.astro";
 import { getCollection } from "astro:content";
 import type { CallToAction } from "../types";
@@ -59,19 +58,19 @@ const metadata = {
     subtitle="Hier ist unsere Auflistung über empfehlenswerte Medien zum Thema alternativer Beziehungsgestaltung. Sie ist keineswegs vollständig, aber vielleicht hilft sie dir weiter."
   />
   <section id="Inhaltverzeichnis" aria-label="Inhaltsverzeichnis" class="max-w-4xl mx-auto dark:bg-slate-900 shadow-md rounded-lg p-6 motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade">
-    <ul class="flex space-x-4 justify-evenly pb-2" role="menu">
+    <ul class="grid grid-cols-1  sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2 justify-items-center" role="menu">
       <Button text="Bücher" href="#Bücher" variant="secondary" role="menuitem"
-              class="dark:hover:bg-primary hover:bg-primary hover:text-white"/>
+              class="w-full dark:hover:bg-primary hover:bg-primary hover:text-white"/>
       <Button text="Podcasts" href="#Podcasts" variant="secondary" role="menuitem"
-              class="dark:hover:bg-accent hover:bg-accent hover:text-white"/>
+              class="w-full dark:hover:bg-accent hover:bg-accent hover:text-white"/>
       <Button text="Artikel" href="#Artikel" variant="secondary" role="menuitem"
-              class="dark:hover:bg-secondary hover:bg-secondary hover:text-white"/>
+              class="w-full dark:hover:bg-secondary hover:bg-secondary hover:text-white"/>
       <Button text="<nobr>Social Media</nobr>" href="#SocialMedia" variant="secondary" role="menuitem"
-              class="dark:hover:bg-primary hover:bg-primary hover:text-white"/>
+              class="w-full dark:hover:bg-primary hover:bg-primary hover:text-white"/>
       <Button text="Webseiten" href="#Webseiten" variant="secondary" role="menuitem"
-              class="dark:hover:bg-accent hover:bg-accent hover:text-white"/>
+              class="w-full dark:hover:bg-accent hover:bg-accent hover:text-white"/>
       <Button text="Sonstige" href="#Sonstige" variant="secondary" role="menuitem"
-              class="dark:hover:bg-secondary hover:bg-secondary hover:text-white"/>
+              class="w-full dark:hover:bg-secondary hover:bg-secondary hover:text-white"/>
     </ul>
   </section>
   <Features2
