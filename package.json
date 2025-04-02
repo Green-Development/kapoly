@@ -30,6 +30,7 @@
     "astro": "^5.1.9",
     "astro-embed": "^0.7.4",
     "astro-icon": "^1.1.1",
+    "date-fns-tz": "^3.2.0",
     "limax": "4.1.0",
     "lodash.merge": "^4.6.2",
     "notion-astro-loader": "^0.4.0",

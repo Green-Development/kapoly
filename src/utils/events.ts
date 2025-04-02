@@ -2,6 +2,7 @@ import type { PaginateFunction } from 'astro';
 import { getCollection, render } from 'astro:content';
 import type { CollectionEntry } from 'astro:content';
 import type {Event, Taxonomy} from '~/types';
+import { formatInTimeZone } from 'date-fns-tz';
 import { APP_EVENT_BLOG } from 'astrowind:config';
 import {
   cleanSlug,
@@ -65,7 +66,7 @@ const getNormalizedEvent = async (event: CollectionEntry<'events'>): Promise<Eve
 
   const title = notionTextToString(data.properties.Name.title);
   const date = new Date(rawDate.date?.start ?? new Date())
-  const time = date.getHours().toString().padStart(2, '0') + ":" + date.getMinutes().toString().padStart(2, '0') +" Uhr"
+  const time = formatInTimeZone(date, 'Europe/Berlin', 'HH:mm') + ' Uhr'
   const location = notionTextToString(data.properties.location.rich_text);
   const image = rawImage?.files?.[0]?.type === 'file' ? rawImage.files[0].file.url : '~/assets/images/polyamory-flag.png';
   const alt = rawImage?.files?.[0]?.type === 'file' ? notionTextToString(rawImageDescription?.rich_text ?? []): 'Polyamorie-Flagge mit drei horizontalen Streifen: Blau oben, Rot in der Mitte und Dunkellila unten. Links zeigt ein weißes Chevron-Dreieck nach innen und enthält ein gelbes Herz.';
