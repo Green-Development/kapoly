@@ -1,4 +1,5 @@
 ---
+import { getPermalink } from "../../utils/permalinks";
 import { ANALYTICS } from 'astrowind:config';
 ---
 
@@ -13,7 +14,7 @@ import { ANALYTICS } from 'astrowind:config';
     <script
             data-domain={ANALYTICS?.vendors?.plausible?.domain}
             data-api={ANALYTICS?.vendors?.plausible?.api}
-            src="/js/plausible.js">
+            src={getPermalink("/js/plausible.js")}>
     </script>
         ) : null
     }
