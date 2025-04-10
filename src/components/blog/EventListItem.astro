@@ -83,8 +83,8 @@ const link = APP_EVENT_BLOG?.event?.isEnabled ? getPermalink(event.permalink, 'p
         <div class="mb-1" aria-label="Termininformationen">
           <span class="text-sm" role="presentation">
             <Icon name="tabler:calendar" aria-hidden="true"
-                  class="w-3.5 h-3.5 inline-block -mt-0.5 dark:text-gray-400"/><span aria-hidden="true">{' '}</span><time
-            datetime={String(event.date)} aria-label="Datum" class="inline-block">{getFormattedDate(event.date)}</time>{
+                  class="w-3.5 h-3.5 inline-block -mt-0.5 dark:text-gray-400"/><span aria-hidden="true">{' '}</span>
+            <time datetime={String(event.date)} aria-label="Datum" class="inline-block">{getFormattedDate(event.date)}</time>{
               event.time && (
                 <span aria-hidden="true">{' '}<br/>{' '}</span>
                 <Icon name="tabler:clock" aria-hidden="true" class="w-3.5 h-3.5 inline-block -mt-0.5 dark:text-gray-400"/><span aria-hidden="true">{' '}</span>
@@ -99,7 +99,8 @@ const link = APP_EVENT_BLOG?.event?.isEnabled ? getPermalink(event.permalink, 'p
             )
           }{event.category && (
             <span aria-hidden="true">{' '}<br/></span>
-            <Icon name="tabler:tag" aria-hidden="true" class="w-3.5 h-3.5 inline-block -mt-0.5 dark:text-gray-400"/><a class="hover:underline" href={getPermalink(event.category.slug, 'eventCategory')}>
+            <Icon name="tabler:tag" aria-hidden="true" class="w-3.5 h-3.5 inline-block -mt-0.5 dark:text-gray-400"/><span aria-hidden="true">{' '}</span>
+            <a class="hover:underline" href={getPermalink(event.category.slug, 'eventCategory')}>
               {event.category.title}
             </a>
           )
