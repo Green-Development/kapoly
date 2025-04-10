@@ -88,6 +88,9 @@ apps:
   
 analytics:
   vendors:
+    plausible:
+      api: "https://analytics.project-insanity.org/api/event"
+      domain: 'kapoly.de'
 
 ui:
   theme: 'system' # Values: "system" | "light" | "dark" | "light:only" | "dark:only"

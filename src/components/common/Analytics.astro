@@ -8,3 +8,13 @@ import { ANALYTICS } from 'astrowind:config';
         async src="//gc.zgo.at/count.js"/>
   ) : null
 }
+{
+    ANALYTICS?.vendors?.plausible?.api ? (
+    <script
+            data-domain={ANALYTICS?.vendors?.plausible?.domain}
+            data-api={ANALYTICS?.vendors?.plausible?.api}
+            src="/js/plausible.js">
+    </script>
+        ) : null
+    }
+
