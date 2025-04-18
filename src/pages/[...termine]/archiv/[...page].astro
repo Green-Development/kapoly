@@ -1,13 +1,15 @@
 ---
-import type {InferGetStaticPropsType, GetStaticPaths} from 'astro';
+import type { InferGetStaticPropsType, GetStaticPaths } from 'astro';
 
 import Layout from '~/layouts/PageLayout.astro';
 import EventList from '~/components/blog/EventList.astro';
 import Headline from '~/components/blog/Headline.astro';
 import Pagination from '~/components/blog/Pagination.astro';
 
-import {blogListRobots, getStaticPathsArchivedEventBlogList} from '~/utils/events';
+import { blogListRobots, getStaticPathsArchivedEventBlogList } from '~/utils/events';
 import Features2 from "~/components/widgets/Features2.astro";
+import Button from "../../../components/ui/Button.astro";
+import { getEventBlogPermalink } from "../../../utils/permalinks";
 
 export const prerender = true;
 
@@ -54,7 +56,15 @@ const metadata = {
     />
     <EventList posts={page.data}/>
     <Pagination prevUrl={page.url.prev} nextUrl={page.url.next}/>
-
+    <div class="mt-10 flex justify-center" role="presentation">
+      <Button
+        variant="primary"
+        class={page.url.prev ? 'invisible' : ''}
+        href={getEventBlogPermalink()}
+      >
+        <span role="presentation">Anstehende Termine anzeigen</span>
+      </Button>
+    </div>
 
   </section>
 </Layout>

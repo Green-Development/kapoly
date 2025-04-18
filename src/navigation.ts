@@ -8,7 +8,7 @@ export const headerData = {
     },
     {
       text: 'Ressourcen',
-      href: getPermalink('/ressourcen'),
+      href: getPermalink('/ressourcen/'),
     },
     {
       text: 'Termine',
@@ -16,7 +16,7 @@ export const headerData = {
     },
     {
       text: 'Kontakt',
-      href: getPermalink('/kontakt'),
+      href: getPermalink('/kontakt/'),
     },
     {
       text: 'Blog',
@@ -24,7 +24,7 @@ export const headerData = {
     },
     {
       text: 'FAQ',
-      href: getPermalink('/faq'),
+      href: getPermalink('/faq/'),
     },
   ],
 };

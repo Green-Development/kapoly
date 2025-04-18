@@ -1,7 +1,7 @@
 name: Deploy to GitHub Pages
 
 on:
-  # Allows you to run this workflow manually from the Actions tab on GitHub and every Sunday at 12AM UTC.
+  # Allows you to run this workflow manually from the Actions tab on GitHub and every Sunday at 12:00 UTC.
   workflow_dispatch:
   schedule:
     - cron: '0 12 * * 0'
