@@ -1,5 +1,6 @@
 import { defineCollection } from 'astro:content';
 import { notionLoader } from "notion-astro-loader";
+import { eventsCollectionSchema } from "~/content/eventsCollectionSchema.ts";
 
 const postCollection = defineCollection({
   loader: notionLoader(
@@ -11,11 +12,11 @@ const postCollection = defineCollection({
 
 
 const eventsCollection = defineCollection({
-  loader: notionLoader(
-    {
-    auth: import.meta.env.NOTION_TOKEN,
-    database_id: import.meta.env.NOTION_EVENTS_DATABASE_ID,
-  }),
+  loader: async () => {
+    const response = await fetch("https://queerka.de/api/events/within?startDateTime=2000-01-01&endDateTime=2125-12-31&orgId=5c1ee6d920413277b70a7263");
+    return response.json();
+  },
+  schema: eventsCollectionSchema,
 });
 
 const resourcesCollection = defineCollection({

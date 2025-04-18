@@ -6,15 +6,13 @@ import EventList from '~/components/blog/EventList.astro';
 import Headline from '~/components/blog/Headline.astro';
 import Pagination from '~/components/blog/Pagination.astro';
 
-import {blogListRobots, getStaticPathsEventBlogList} from '~/utils/events';
-import Features2 from "../../components/widgets/Features2.astro";
-import {getPermalink} from "../../utils/permalinks";
-import Button from "../../components/ui/Button.astro";
+import {blogListRobots, getStaticPathsArchivedEventBlogList} from '~/utils/events';
+import Features2 from "~/components/widgets/Features2.astro";
 
 export const prerender = true;
 
 export const getStaticPaths = (async ({paginate}) => {
-  return await getStaticPathsEventBlogList({paginate});
+  return await getStaticPathsArchivedEventBlogList({paginate});
 }) satisfies GetStaticPaths;
 
 type Props = InferGetStaticPropsType<typeof getStaticPaths>;
@@ -23,7 +21,7 @@ const {page} = Astro.props as Props;
 const currentPage = page.currentPage ?? 1;
 
 const metadata = {
-  title: `Termine${currentPage > 1 ? ` — Seite ${currentPage}` : ''}`,
+  title: `Vergangene Termine${currentPage > 1 ? ` — Seite ${currentPage}` : ''}`,
   robots: {
     index: blogListRobots?.index && currentPage === 1,
     follow: blogListRobots?.follow,
@@ -37,7 +35,7 @@ const metadata = {
 <Layout metadata={metadata}>
   <section class="px-6 sm:px-6 py-12 sm:py-16 lg:py-20 mx-auto max-w-4xl" role="presentation">
     <Headline>
-      <span class="text-primary">Ter</span><span class="text-accent">mine</span>
+      Vergangene <span class="text-primary">Ter</span><span class="text-accent">mine</span>
     </Headline>
     <Features2
       id="Allgemeines"
@@ -55,16 +53,8 @@ const metadata = {
       ]}
     />
     <EventList posts={page.data}/>
-    <Pagination prevUrl={page.url.prev} nextUrl={page.url.next} prevText="Frühere Veranstaltungen" nextText="Zukünftigere Veranstaltungen"/>
-    <div class="mt-10 flex justify-center" role="presentation">
-      <Button
-        variant="primary"
-        class={page.url.prev ? 'invisible' : ''}}
-        href="/termine/archiv"
-      >
-        <span role="presentation">Vergangene Termine anzeigen</span>
-      </Button>
-    </div>
+    <Pagination prevUrl={page.url.prev} nextUrl={page.url.next}/>
+
 
   </section>
 </Layout>

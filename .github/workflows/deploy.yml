@@ -1,8 +1,10 @@
 name: Deploy to GitHub Pages
 
 on:
-  # Allows you to run this workflow manually from the Actions tab on GitHub.
+  # Allows you to run this workflow manually from the Actions tab on GitHub and every Sunday at 12AM UTC.
   workflow_dispatch:
+  schedule:
+    - cron: '0 12 * * 0'
 
 # Allow this job to clone the repo and create a page deployment
 permissions:

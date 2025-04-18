@@ -72,7 +72,7 @@ export default defineConfig({
   ],
 
   image: {
-    domains: ['cdn.pixabay.com'],
+    domains: ['queerka.de'],
     remotePatterns: [
       {
         protocol: "https",

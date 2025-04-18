@@ -46,17 +46,6 @@ const { event, url } = Astro.props;
               </>
             )
           }
-          {
-            event.category && (
-              <>
-                {' '}
-                ·{' '}
-                <a class="hover:underline inline-block" href={getPermalink(event.category.slug, 'eventCategory')}>
-                  {event.category.title}
-                </a>
-              </>
-            )
-          }
         </p>
       </div>
 

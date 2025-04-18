@@ -2,7 +2,7 @@
 import { APP_EVENT_BLOG } from 'astrowind:config';
 
 import { getRelatedEvents } from '~/utils/events';
-import BlogHighlightedPosts from '../widgets/BlogHighlightedPosts.astro';
+import BlogHighlightedEvents from '../widgets/BlogHighlightedEvents.astro';
 import type { Event } from '~/types';
 import { getEventBlogPermalink } from '~/utils/permalinks';
 
@@ -12,12 +12,12 @@ export interface Props {
 
 const { event } = Astro.props;
 
-const relatedPosts = event.tags ? await getRelatedEvents(event, 4) : [];
+const relatedEvents =  await getRelatedEvents(event, 4);
 ---
 
 {
   APP_EVENT_BLOG.isRelatedPostsEnabled ? (
-    <BlogHighlightedPosts
+    <BlogHighlightedEvents
       classes={{
         container:
           'pt-0 lg:pt-0 md:pt-0 intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade',
@@ -25,7 +25,7 @@ const relatedPosts = event.tags ? await getRelatedEvents(event, 4) : [];
       title="Andere Termine"
       linkText="Alle Termine anzeigen"
       linkUrl={getEventBlogPermalink()}
-      postIds={relatedPosts.map((post) => post.id)}
+      eventIds={relatedEvents.map((event) => event.id)}
     />
   ) : null
 }

@@ -2,7 +2,6 @@
 import type { ImageMetadata } from 'astro';
 import { Icon } from 'astro-icon/components';
 import Image from '~/components/common/Image.astro';
-import EventTags from '~/components/blog/EventTags.astro';
 
 import { APP_EVENT_BLOG } from 'astrowind:config';
 import type {Event} from '~/types';
@@ -97,24 +96,12 @@ const link = APP_EVENT_BLOG?.event?.isEnabled ? getPermalink(event.permalink, 'p
                     class="w-3.5 h-3.5 inline-block -mt-0.5 dark:text-gray-400"/><span aria-hidden="true">{' '}</span>
               <span aria-label="Ort">{event.location}</span>
             )
-          }{event.category && (
+          }        
             <span aria-hidden="true">{' '}<br/></span>
-            <Icon name="tabler:tag" aria-hidden="true" class="w-3.5 h-3.5 inline-block -mt-0.5 dark:text-gray-400"/><span aria-hidden="true">{' '}</span>
-            <a class="hover:underline" href={getPermalink(event.category.slug, 'eventCategory')}>
-              {event.category.title}
-            </a>
-          )
+            <span aria-hidden="true">{' '}<br/></span>
+            { event.Content ? <event.Content /> : <Fragment set:html={event.content || ''} />
           }</span>
       </div>
     </header>
-    {
-      event.tags && Array.isArray(event.tags) ? (
-        <footer class="mt-5" role="presentation">
-          <EventTags tags={event.tags} />
-        </footer>
-      ) : (
-        <Fragment />
-      )
-    }
   </div>
 </article>

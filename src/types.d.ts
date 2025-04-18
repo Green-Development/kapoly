@@ -61,9 +61,6 @@ export interface Event {
   time: string;
   /**  */
   publishDate: Date;
-  /**  */
-  updateDate?: Date;
-  
 
   /**  */
   title: string;
@@ -76,13 +73,6 @@ export interface Event {
   alt?: string;
 
   /**  */
-  category?: Taxonomy;
-  /**  */
-  tags?: Taxonomy[];
-  /**  */
-  author?: string;
-  
-  /**  */
   location?: string;
 
   /**  */
@@ -94,9 +84,6 @@ export interface Event {
   /**  */
   Content?: AstroComponentFactory;
   content?: string;
-
-  /**  */
-  readingTime?: number;
 }
 
 export interface Taxonomy {

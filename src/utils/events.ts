@@ -1,7 +1,7 @@
 import type { PaginateFunction } from 'astro';
-import { getCollection, render } from 'astro:content';
+import { getCollection } from 'astro:content';
 import type { CollectionEntry } from 'astro:content';
-import type {Event, Taxonomy} from '~/types';
+import type { Event } from '~/types';
 import { formatInTimeZone } from 'date-fns-tz';
 import { APP_EVENT_BLOG } from 'astrowind:config';
 import {
@@ -9,10 +9,8 @@ import {
   trimSlash,
   EVENT_BLOG_BASE,
   EVENT_PERMALINK_PATTERN,
-  EVENT_CATEGORY_BASE,
-  EVENT_TAG_BASE,
 } from './permalinks';
-import { getFormattedDate, notionMultiSelectToStrings, notionTextToString} from "~/utils/utils.ts";
+import { getFormattedDate } from "~/utils/utils.ts";
 
 const generateEventPermalink = async ({
   id,
@@ -51,45 +49,19 @@ const generateEventPermalink = async ({
 
 const getNormalizedEvent = async (event: CollectionEntry<'events'>): Promise<Event> => {
   const { id, data } = event;
-  const { Content, remarkPluginFrontmatter } = await render(event);
-  const {
-    publishDate: rawPublishDate,
-    updateDate: rawUpdateDate,
-    date: rawDate,
-    excerpt: rawExcerpt,
-    image: rawImage,
-    imageDescription: rawImageDescription,
-    tags: rawMultiSelectTags,
-    category: rawMultiSelectCategory,
-    author: rawAuthor,
-  } = data.properties;
 
-  const title = notionTextToString(data.properties.Name.title);
-  const date = new Date(rawDate.date?.start ?? new Date())
+  const title = data.Title;
+  const content = data.Description;
+  const date = new Date(data.startDateTime ?? new Date())
   const time = formatInTimeZone(date, 'Europe/Berlin', 'HH:mm') + ' Uhr'
-  const location = notionTextToString(data.properties.location.rich_text);
-  const image = rawImage?.files?.[0]?.type === 'file' ? rawImage.files[0].file.url : '~/assets/images/polyamory-flag.png';
-  const alt = rawImage?.files?.[0]?.type === 'file' ? notionTextToString(rawImageDescription?.rich_text ?? []): 'Polyamorie-Flagge mit drei horizontalen Streifen: Blau oben, Rot in der Mitte und Dunkellila unten. Links zeigt ein weißes Chevron-Dreieck nach innen und enthält ein gelbes Herz.';
-  const author = notionTextToString(rawAuthor.rich_text);
-  const rawCategory = notionMultiSelectToStrings(rawMultiSelectCategory?.multi_select)[0];
-  const rawTags = notionMultiSelectToStrings(rawMultiSelectTags?.multi_select);
-  const slug = cleanSlug(id); // cleanSlug(rawSlug.split('/').pop());
-  const publishDate = new Date(rawPublishDate?.date?.start ?? new Date());
-  const updateDate = rawUpdateDate ? new Date(rawUpdateDate?.date?.start ?? new Date()) : undefined;
-  const category = rawCategory
-    ? {
-        slug: cleanSlug(rawCategory),
-        title: rawCategory,
-      }
-    : undefined;
-  const tags = rawTags.map((tag: string) => ({
-    slug: cleanSlug(tag),
-    title: tag,
-  }));
-  const permalink = await generateEventPermalink({ id, slug, publishDate, category: category?.slug })
-  const excerpt = notionTextToString(rawExcerpt.rich_text) !== "" 
-    ? notionTextToString(rawExcerpt.rich_text) 
-    : `${getFormattedDate(date)} um ${time}, ${location}`
+  const location = `${data.Location} (${data.Address})`.trim();
+  const image = data.Images.length === 1 && data.Images[0].name !== "polyamory-flag.png"  ? `https://queerka.de/imageupload/eventImages/${data.imgPrefix}${data.Images[0].name}` : '~/assets/images/polyamory-flag.png';
+  const alt = data.Images.length === 1 && data.Images[0].name !== "polyamory-flag.png"  ? data.Images[0].description : 'Polyamorie-Flagge mit drei horizontalen Streifen: Blau oben, Rot in der Mitte und Dunkellila unten. Links zeigt ein weißes Chevron-Dreieck nach innen und enthält ein gelbes Herz.';
+  const slug = cleanSlug(id);
+  const publishDate = new Date(data.dateCreated ?? new Date());
+
+  const permalink = await generateEventPermalink({ id, slug, publishDate, category: undefined })
+  const excerpt = `${getFormattedDate(date)} um ${time}, ${location}`
   const metadata = { title, description: excerpt };
 
   return {
@@ -99,22 +71,17 @@ const getNormalizedEvent = async (event: CollectionEntry<'events'>): Promise<Eve
     date,
     time,
     publishDate,
-    updateDate,
 
     title,
     excerpt,
     location,
     image,
     alt,
-    category,
-    tags,
-    author,
-
+    
     draft: false,
     metadata,
 
-    Content,
-    readingTime: remarkPluginFrontmatter?.readingTime,
+    content,
   };
 };
 
@@ -187,16 +154,45 @@ export const findEventsByIds = async (ids: Array<string>): Promise<Array<Event>>
 /** */
 export const findLatestEvents = async ({ count }: { count?: number }): Promise<Array<Event>> => {
   const _count = count || 4;
-  const events = await fetchEvents();
+  const allEvents = await fetchEvents();
+  const now = new Date();
 
-  return events ? events.slice(0, _count) : [];
+  const futureEvents = allEvents
+    .filter(event => new Date(event.date) >= now)
+    .sort((a, b) => new Date(a.date).valueOf() - new Date(b.date).valueOf());
+
+
+  return futureEvents ? futureEvents.slice(0, _count) : [];
 };
 
 
 /** */
 export const getStaticPathsEventBlogList = async ({ paginate }: { paginate: PaginateFunction }) => {
   if (!isBlogEnabled || !isBlogListRouteEnabled) return [];
-  return paginate(await fetchEvents(), {
+  const allEvents = await fetchEvents();
+  const now = new Date();
+
+  const futureEvents = allEvents
+    .filter(event => new Date(event.date) >= now)
+    .sort((a, b) => new Date(a.date).valueOf() - new Date(b.date).valueOf());
+
+  return paginate(futureEvents, {
+    params: { termine: EVENT_BLOG_BASE || undefined },
+    pageSize: blogPostsPerPage,
+  });
+};
+
+/** */
+export const getStaticPathsArchivedEventBlogList = async ({ paginate }: { paginate: PaginateFunction }) => {
+  if (!isBlogEnabled || !isBlogListRouteEnabled) return [];
+  const allEvents = await fetchEvents();
+  const now = new Date();
+
+  const futureEvents = allEvents
+    .filter(event => new Date(event.date) < now)
+    .sort((a, b) =>  new Date(b.date).valueOf() - new Date(a.date).valueOf());
+
+  return paginate(futureEvents, {
     params: { termine: EVENT_BLOG_BASE || undefined },
     pageSize: blogPostsPerPage,
   });
@@ -214,87 +210,20 @@ export const getStaticPathsEventBlogPost = async () => {
   }));
 };
 
-/** */
-export const getStaticPathsEventBlogCategory = async ({ paginate }: { paginate: PaginateFunction }) => {
-  if (!isBlogEnabled || !isBlogCategoryRouteEnabled) return [];
-
-  const events = await fetchEvents();
-  const categories: Record<string, Taxonomy> = {};
-  events.map((event) => {
-    if (event.category?.slug) {
-      categories[event.category?.slug] = event.category;
-    }
-  });
-
-  return Array.from(Object.keys(categories)).flatMap((categorySlug) =>
-    paginate(
-      events.filter((event) => event.category?.slug && categorySlug === event.category?.slug),
-      {
-        params: { category: categorySlug, termine: EVENT_CATEGORY_BASE || undefined },
-        pageSize: blogPostsPerPage,
-        props: { category: categories[categorySlug] },
-      }
-    )
-  );
-};
-
-/** */
-export const getStaticPathsEventBlogTag = async ({ paginate }: { paginate: PaginateFunction }) => {
-  if (!isBlogEnabled || !isBlogTagRouteEnabled) return [];
-
-  const events = await fetchEvents();
-  const tags: Record<string, Taxonomy> = {};
-  events.map((event) => {
-    if (Array.isArray(event.tags)) {
-      event.tags.map((tag) => {
-        tags[tag?.slug] = tag;
-      });
-    }
-  });
-
-  return Array.from(Object.keys(tags)).flatMap((tagSlug) =>
-    paginate(
-      events.filter((event) => Array.isArray(event.tags) && event.tags.find((elem) => elem.slug === tagSlug)),
-      {
-        params: { tag: tagSlug, termine: EVENT_TAG_BASE || undefined },
-        pageSize: blogPostsPerPage,
-        props: { tag: tags[tagSlug] },
-      }
-    )
-  );
-};
 
 /** */
 export async function getRelatedEvents(originalEvent: Event, maxResults: number = 4): Promise<Event[]> {
   const allEvents = await fetchEvents();
-  const originalTagsSet = new Set(originalEvent.tags ? originalEvent.tags.map((tag) => tag.slug) : []);
 
-  const eventsWithScores = allEvents.reduce((acc: { event: Event; score: number }[], iteratedEvent: Event) => {
-    if (iteratedEvent.slug === originalEvent.slug) return acc;
-
-    let score = 0;
-    if (iteratedEvent.category && originalEvent.category && iteratedEvent.category.slug === originalEvent.category.slug) {
-      score += 5;
-    }
-
-    if (iteratedEvent.tags) {
-      iteratedEvent.tags.forEach((tag) => {
-        if (originalTagsSet.has(tag.slug)) {
-          score += 1;
-        }
-      });
-    }
-
-    acc.push({ event: iteratedEvent, score });
-    return acc;
-  }, []);
-
-  eventsWithScores.sort((a, b) => b.score - a.score);
-
+  const sortedEvents = allEvents.sort(
+  (a, b) =>
+    Math.abs(originalEvent.date.valueOf() - a.date.valueOf()) -
+    Math.abs(originalEvent.date.valueOf() - b.date.valueOf())
+).slice(1);
   const selectedEvents: Event[] = [];
   let i = 0;
-  while (selectedEvents.length < maxResults && i < eventsWithScores.length) {
-    selectedEvents.push(eventsWithScores[i].event);
+  while (selectedEvents.length < maxResults && i < sortedEvents.length) {
+    selectedEvents.push(sortedEvents[i]);
     i++;
   }
 
