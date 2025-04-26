@@ -28,14 +28,14 @@ const link = APP_EVENT_BLOG?.event?.isEnabled ? getPermalink(event.permalink, 'p
       (link ? (
         <a class="relative block group" href={link ?? 'javascript:void(0)'}>
           <div
-            class="relative h-0 pb-[56.25%] md:pb-[75%] md:h-72 lg:pb-[56.25%] overflow-hidden bg-gray-400 dark:bg-slate-700 rounded shadow-lg">
+             class=" w-1/2 md:ml-auto relative h-0 pb-[28.125%] md:pb-[37.5%] md:h-36 lg:pb-[28.125%] overflow-hidden bg-gray-400 dark:bg-slate-700 rounded shadow-lg">
             {image && (
               <Image
                 src={image}
                 class="absolute inset-0 object-cover w-full h-full mb-6 rounded shadow-lg bg-gray-400 dark:bg-slate-700"
-                widths={[400, 900]}
-                width={900}
-                sizes="(max-width: 900px) 400px, 900px"
+                widths={[200, 450]}
+                width={450}
+                sizes="(max-width:450px) 200px, 450px"
                 alt={event.alt}
                 aspectRatio="16:9"
                 loading="lazy"
@@ -46,14 +46,14 @@ const link = APP_EVENT_BLOG?.event?.isEnabled ? getPermalink(event.permalink, 'p
         </a>
       ) : (
         <div
-          class="relative h-0 pb-[56.25%] md:pb-[75%] md:h-72 lg:pb-[56.25%] overflow-hidden bg-gray-400 dark:bg-slate-700 rounded shadow-lg">
+          class=" w-1/2 md:ml-auto relative h-0 pb-[28.125%] md:pb-[37.5%] md:h-36 lg:pb-[28.125%] overflow-hidden bg-gray-400 dark:bg-slate-700 rounded shadow-lg"> 
           {image && (
             <Image
               src={image}
               class="absolute inset-0 object-cover w-full h-full mb-6 rounded shadow-lg bg-gray-400 dark:bg-slate-700"
-              widths={[400, 900]}
-              width={900}
-              sizes="(max-width: 900px) 400px, 900px"
+              widths={[200, 450]}
+              width={450}
+              sizes="(max-width:450px) 200px, 450px"
               alt={event.alt}
               aspectRatio="16:9"
               loading="lazy"
@@ -96,11 +96,8 @@ const link = APP_EVENT_BLOG?.event?.isEnabled ? getPermalink(event.permalink, 'p
                     class="w-3.5 h-3.5 inline-block -mt-0.5 dark:text-gray-400"/><span aria-hidden="true">{' '}</span>
               <span aria-label="Ort">{event.location}</span>
             )
-          }        
-            <span aria-hidden="true">{' '}<br/></span>
-            <span aria-hidden="true">{' '}<br/></span>
-            { event.Content ? <event.Content /> : <Fragment set:html={event.content || ''} />
-          }</span>
+          }
+          </span>
       </div>
     </header>
   </div>
