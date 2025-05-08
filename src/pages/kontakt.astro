@@ -2,7 +2,6 @@
 import Layout from '~/layouts/PageLayout.astro';
 import ContactUs from '~/components/widgets/Contact.astro';
 import Features2 from '~/components/widgets/Features2.astro';
-import Button from "../components/ui/Button.astro";
 
 const metadata = {
   title: 'Kontakt',
@@ -17,38 +16,26 @@ const metadata = {
         title: 'Kontaktformular',
         description: 'Nutze dieses Kontaktformular, um uns eine Nachricht zu senden',
         icon: 'tabler:forms',
+        link: '#form',
       },
       {
         title: 'Persönlich',
         description: 'Besuche uns bei einem unserer Stammtische',
         icon: 'tabler:users',
+        link: '/termine',
       },
       {
         title: 'E-Mail',
         description: 'Schreibe uns eine E-Mail: kapoly@familymail.de',
         icon: 'tabler:mail',
+        link: 'mailto:kapoly@familymail.de',
       },
     ]}
   />
-  <section id="kontaktmoeglichkeiten" aria-label="Kontaktmöglichkeiten"
-           class="max-w-3xl mx-auto dark:bg-slate-900 shadow-md rounded-lg p-6 motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade">
-    <ul class="flex flex-col items-center space-y-4 md:flex-row md:space-y-0 md:space-x-4 md:justify-evenly pb-2">     
-      <li>
-        <Button text="Kontaktformular" href="#form" variant="secondary"
-                class="w-52 dark:hover:bg-primary hover:bg-primary hover:text-white"/>
-      </li>
-      <li>
-        <Button text="Persönlich" href="/termine" variant="secondary"
-                class="w-52 dark:hover:bg-accent hover:bg-accent hover:text-white"/>
-      <li>
-        <Button text="E-Mail" href="mailto:kapoly@familymail.de" variant="secondary"
-                class="w-52 dark:hover:bg-secondary hover:bg-secondary hover:text-white"/>
-      </li>
-    </ul>
-  </section>
   <ContactUs
     id="form"
     title="Kontaktformular"
+    classes={{"container": "pt-0 md:pt-0 lg:pt-0"}}
     inputs={[
       {
         type: 'text',

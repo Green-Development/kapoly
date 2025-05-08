@@ -12,7 +12,7 @@ const { posts } = Astro.props;
 <ul aria-label="Terminliste">
   {
     posts.map((post) => (
-      <li class="mb-12 md:mb-20" aria-label={post.title}>
+      <li class="mb-12 md:mb-12" aria-label={post.title}>
         <Item event={post} />
       </li>
     ))

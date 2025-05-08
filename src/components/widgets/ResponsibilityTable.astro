@@ -1,0 +1,42 @@
+---
+export interface Responsibility {
+  title: string;
+  link: {
+    type: "url" 
+    id: string   
+    url: string | null 
+  };
+  people: string;
+  description: string;
+}
+
+export interface Props {
+  responsibilities: Responsibility[];
+}
+
+const { responsibilities } = Astro.props;
+---
+<table class="mx-auto mb-8 lg:w-2/3 text-left text-sm border border-gray-200 dark:border-gray-700">
+  <thead class="bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-200">
+    <tr>
+      <th class="p-2 border-b">Bezeichnung</th>
+      <th class="p-2 border-b">Verantwortliche</th>
+      <th class="p-2 border-b">Beschreibung</th>
+    </tr>
+  </thead>
+  <tbody>
+    {responsibilities.map(({ title, people, link, description }) => (
+      <tr class="border-t border-gray-200 dark:border-gray-700">
+        <td class="p-4">{
+          link?.url ? (
+            <a href={link.url} class="text-blue-600 hover:underline" target="_blank" rel="noopener noreferrer">
+              {title}
+            </a>
+          ) : {title}}</td>
+        <td class="p-4">{people}</td>
+
+        <td class="p-4">{description}</td>
+      </tr>
+    ))}
+  </tbody>
+</table>

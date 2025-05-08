@@ -1,0 +1,37 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import { getCollection } from "astro:content";
+import { notionTextToString } from "../utils/utils";
+import ResponsibilityTable from "../components/widgets/ResponsibilityTable.astro";
+import Features2 from "../components/widgets/Features2.astro";
+
+const metadata = {
+  title: 'Orga',
+  robots: {index: false, follow: false}
+};
+const orgaCollection = await getCollection('orga')
+const orgaItems = orgaCollection.map((item) => {
+  const {
+    Name: title, people, link, description
+  } = item.data.properties;
+  return {
+    title: notionTextToString(title.title),
+    people: notionTextToString(people.rich_text),
+    link,
+    description: notionTextToString(description.rich_text),
+  }
+});
+---
+
+<Layout metadata={metadata}>
+  <Features2 title="Orga"
+             columns={1} 
+             classes={{"container": "text-center lg:w-2/3"}}
+             items={[
+                {
+                  description: 'Da die Organisation des Stammtisches manchmal fluktuiert, wurde hier gesammelt wer auf was Zugriff hat.',
+                },
+              ]}
+  />
+  <ResponsibilityTable responsibilities={orgaItems}/>
+</Layout>

@@ -16,24 +16,64 @@ const {
 } = classes;
 ---
 
-{
-  items && (
-    <div
-      class={twMerge(
-        `grid gap-8 gap-x-12 sm:gap-y-8 ${
-          columns === 4
-            ? 'lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2'
-            : columns === 3
-              ? 'lg:grid-cols-3 sm:grid-cols-2'
-              : columns === 2
-                ? 'sm:grid-cols-2 '
-                : ''
-        }`,
-        containerClass
-      )}
-      role="list"
-    >
-      {items.map(({ title, subtitle, description, icon, callToAction, classes: itemClasses = {} }) => (
+{items && (
+  <div
+    class={twMerge(
+      `grid gap-8 gap-x-12 sm:gap-y-8 ${
+        columns === 4
+          ? 'lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2'
+          : columns === 3
+            ? 'lg:grid-cols-3 sm:grid-cols-2'
+            : columns === 2
+              ? 'sm:grid-cols-2'
+              : ''
+      }`,
+      containerClass
+    )}
+    role="list"
+  >
+    {items.map(({ title, subtitle, description, icon, callToAction, link, classes: itemClasses = {} }) => {
+      const content = (
+        <>
+          {(title || icon || defaultIcon) && (
+            <div class={twMerge('flex items-center gap-2', itemClasses?.header)}>
+              {(icon || defaultIcon) && (
+                <Icon
+                  name={icon || defaultIcon}
+                  class={twMerge('mr-5', defaultIconClass, itemClasses?.icon)}
+                  aria-hidden="true"
+                />
+              )}
+              {title && (
+                <div aria-label="Titel" class={twMerge('text-xl font-bold pb-5', titleClass, itemClasses?.title)}>
+                  {title}
+                </div>
+              )}
+            </div>
+          )}
+
+          {subtitle && (
+            <div aria-label="Untertitel" class={twMerge('text-xl mb-2', titleClass, itemClasses?.subtitle)}>
+              – {subtitle}
+            </div>
+          )}
+
+          {description && (
+            <p
+              class={twMerge('text-muted', descriptionClass, itemClasses?.description)}
+              set:html={description}
+            />
+          )}
+
+          {callToAction && (
+            <div class="mt-auto pt-2" role="presentation">
+              <Button {...callToAction} />
+            </div>
+          )}
+        </>
+      );
+
+      return (
         <div
           role="listitem"
           aria-label={title}
@@ -43,24 +83,15 @@ const {
             itemClasses?.panel
           )}
         >
-          {(icon || defaultIcon) && (
-            <Icon name={icon || defaultIcon} class={twMerge('mb-2 w-10 h-10', defaultIconClass, itemClasses?.icon)} aria-hidden="true" />
-          )}
-          {title && (<div aria-label="Titel" class={twMerge('text-xl font-bold', titleClass, itemClasses?.title)}>{title}</div>
-          )}
-          {subtitle && (
-            <div aria-label="Untertitel" class={twMerge('text-xl', titleClass, itemClasses?.subtitle)}>– {subtitle}</div>
-          )}
-          {description && (
-            <p class={twMerge('text-muted mt-2', descriptionClass, itemClasses?.description)} set:html={description} />
-          )}
-          {callToAction && (
-            <div class="mt-auto pt-2" role="presentation">
-              <Button {...callToAction} />
-            </div>
+          {link ? (
+            <a href={link} aria-label={title} class="contents">
+              {content}
+            </a>
+          ) : (
+            content
           )}
         </div>
-      ))}
-    </div>
-  )
-}
+      );
+    })}
+  </div>
+)}

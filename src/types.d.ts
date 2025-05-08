@@ -179,6 +179,7 @@ export interface Item {
   subtitle?: string;
   description?: string;
   icon?: string;
+  link?: string;
   classes?: Record<string, string>;
   callToAction?: CallToAction;
   image?: Image;

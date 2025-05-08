@@ -6,7 +6,7 @@ import Hero from '~/components/widgets/Hero.astro';
 import BlogLatestPosts from '~/components/widgets/BlogLatestPosts.astro';
 import CallToAction from '~/components/widgets/CallToAction.astro';
 import BlogLatestEvents from "../components/widgets/BlogLatestEvents.astro";
-import {getEventBlogPermalink, getPermalink} from "../utils/permalinks";
+import {getBlogPermalink, getEventBlogPermalink, getPermalink} from "../utils/permalinks";
 
 const metadata = {
   title: 'KApoly – Karlsruher Stammtisch für Polyamorie',
@@ -20,19 +20,19 @@ const metadata = {
   <Hero
     actions={[
 
-      { text: '<nobr>Begriffserklärung</nobr>', href: getPermalink('/blog/1a86d97e-a066-80d1-a15d-fbfc769fece9'), icon: 'tabler:book' },
-      { text: '<nobr>Häufige Fragen</nobr>', href: getPermalink('/faq'), icon: 'tabler:question-mark' },
+      { text: '<nobr>Begriffserklärung</nobr>', href: getPermalink('/begriffserklaerung'), icon: 'tabler:book' },
+      { text: '<nobr>Termine</nobr>', href: getEventBlogPermalink(), icon: 'tabler:calendar' },
           {
         variant: 'primary',
-        text: 'Termine',
-        href: getEventBlogPermalink(),
+        text: 'Kontakt',
+        href: getPermalink('/kontakt'),
         target: '_self',
-        icon: 'tabler:calendar',
+        icon: 'tabler:user',
       },]}
     image={{ src: '~/assets/images/polyamorie-karlsruhe.webp', alt: 'Buntes, handgemachtes Kunstwerk zum Thema Polyamorie in Karlsruhe. In der Mitte ein großes blaues Herz mit einem gelben Unendlichkeitszeichen. Mehrere bunte Streifen (rot, orange, gelb, grün, blau) strahlen vom Herz aus. Um das Herz sind bunte Herzen in Grün, Gelb, Rot und Blau verteilt. Die Worte "Poly" und "Amorie" sind oben zu lesen, während "Karlsruhe" in Teilen um das Herz herum angeordnet ist.' }}
   >
     <Fragment slot="title">
-      Willkommen bei <span class="text-accent highlight">KApoly</span>
+      <span class="text-primary">Willkommen bei</span> <span class="text-accent highlight">KApoly</span>
     </Fragment>
 
     <Fragment slot="subtitle">
@@ -45,22 +45,26 @@ const metadata = {
   <BlogLatestEvents
     id="Termine"
     title="Termine"
+    linkText=""
+    classes={{container: 'py-0 md:py-0 lg:py-0'}}
     information={"Unser ☕ Stammtisch findet immer am 11. jedes Monats um 19:00 Uhr statt. Unser 💬 Thementreff findet meistens Ende des Monats statt, werden aber oft erst 1-2 Wochen vorher angekündigt. Hier diskutieren wir in Kleingruppen zu Themen die uns gerade beschäftigen."}
-  />
-    <BlogLatestPosts
-    id="Blog"
-    title="Lies mehr im Blog"
   />
   
   <!-- CallToAction Widget *********** -->
 
   <CallToAction
     id="Weitere Ressourcen"
-    title="Finde mehr heraus auf unserer Ressourcen oder FAQ Seite"
+    title="Mehr"
     actions={[
-      
       {
-        variant: 'primary',
+        variant: 'secondary',
+        text: 'Blog',
+        href: getBlogPermalink(),
+        target: '_self',
+        icon: 'tabler:book',
+      },      
+      {
+        variant: 'secondary',
         text: 'Ressourcen',
         href: getPermalink('/ressourcen'),
         target: '_self',

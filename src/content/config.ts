@@ -35,9 +35,18 @@ const faqCollection = defineCollection({
   }),
 });
 
+const orgaCollection = defineCollection({
+  loader: notionLoader(
+    {
+    auth: import.meta.env.NOTION_TOKEN,
+    database_id: import.meta.env.NOTION_ORGA_DATABASE_ID,
+  }),
+});
+
 export const collections = {
   post: postCollection,
   resources: resourcesCollection,
   events: eventsCollection,
-  faq: faqCollection
+  faq: faqCollection,
+  orga: orgaCollection
 };
