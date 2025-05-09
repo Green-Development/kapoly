@@ -1,7 +1,7 @@
 site:
   name: KApoly
-  site: 'https://green-development.github.io'
-  base: '/kapoly'
+  site: 'https://kapoly.de'
+  base: '/'
   trailingSlash: false
 
   googleSiteVerificationId: false

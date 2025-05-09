@@ -7,8 +7,6 @@ deployed to https://kapoly.de
 
 
 ## Build with 🚀 AstroWind
-<img src="https://raw.githubusercontent.com/onwidget/.github/main/resources/astrowind/lighthouse-score.png" align="right"
-     alt="AstroWind Lighthouse Score" width="100" height="358">
 
 🌟 _Most *starred* & *forked* Astro theme in 2022 & 2023_. 🌟
 
@@ -22,7 +20,6 @@ deployed to https://kapoly.de
 - ✅ **Open Graph tags** for social media sharing.
 - ✅ **Analytics** built-in Google Analytics, and Splitbee integration.
 
-<br>
 
 <img src="https://raw.githubusercontent.com/onwidget/.github/main/resources/astrowind/screenshot-astrowind-1.png" alt="AstroWind Theme Screenshot">
 
@@ -34,33 +31,11 @@ deployed to https://kapoly.de
 [![Stars](https://img.shields.io/github/stars/onwidget/astrowind.svg?style=social&label=stars&maxAge=86400&color=ff69b4)](https://github.com/onwidget/astrowind)
 [![Forks](https://img.shields.io/github/forks/onwidget/astrowind.svg?style=social&label=forks&maxAge=86400&color=ff69b4)](https://github.com/onwidget/astrowind)
 
-<br>
-
-<details open>
-<summary>Table of Contents</summary>
-
-- [Demo](#demo)
-- [Upcoming: AstroWind 2.0 – We Need Your Vision!](#-upcoming-astrowind-20--we-need-your-vision)
-- [Getting started](#getting-started)
-  - [Project structure](#project-structure)
-  - [Commands](#commands)
-  - [Configuration](#configuration)
-  - [Deploy](#deploy)
-- [Frequently Asked Questions](#frequently-asked-questions)
-- [Related Projects](#related-projects)
-- [Contributing](#contributing)
-- [Acknowledgements](#acknowledgements)
-- [License](#license)
-
-</details>
-
-<br>
 
 ## Demo
 
 📌 [https://astrowind.vercel.app/](https://astrowind.vercel.app/)
 
-<br>
 
 ## 🔔 Upcoming: AstroWind 2.0 – We Need Your Vision!
 
@@ -68,7 +43,6 @@ We're embarking on an exciting journey with **AstroWind 2.0**, and we want you t
 
 [Share Your Feedback in Our Discussion!](https://github.com/onwidget/astrowind/discussions/392)
 
-<br>
 
 ## Getting started
 
@@ -238,7 +212,6 @@ ui:
   theme: 'system' # Values: "system" | "light" | "dark" | "light:only" | "dark:only"
 ```
 
-<br>
 
 #### Customize Design
 
@@ -260,33 +233,6 @@ npm run build
 Now, your website is ready to be deployed. All generated files are located at
 `dist` folder, which you can deploy the folder to any hosting service you
 prefer.
-
-#### Deploy to Netlify
-
-Clone this repository on your own GitHub account and deploy it to Netlify:
-
-[![Netlify Deploy button](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/onwidget/astrowind)
-
-#### Deploy to Vercel
-
-Clone this repository on your own GitHub account and deploy to Vercel:
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fonwidget%2Fastrowind)
-
-<br>
-
-## Frequently Asked Questions
-
-- Why?
--
--
-
-<br>
-
-## Related projects
-
-- [TailNext](https://tailnext.vercel.app/) - Free template using Next.js 14 and Tailwind CSS with the new App Router.
-- [Qwind](https://qwind.pages.dev/) - Free template to make your website using Qwik + Tailwind CSS.
 
 ## Contributing
 
