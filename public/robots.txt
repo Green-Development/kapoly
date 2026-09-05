@@ -1,4 +1,0 @@
-User-agent: *
-Disallow: /impressum
-Disallow: /privacy
-Disallow: /orga
